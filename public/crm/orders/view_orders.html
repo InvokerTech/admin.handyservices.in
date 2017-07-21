@@ -1,0 +1,672 @@
+<div class="row mt" ng-controller="Orders">
+  <div class="col-md-12">
+    <div class="content-panel">
+      <div loading style="text-align: center;"><img src="../assets/img/Preloader_1.gif" /></div>
+      <table id="order_list" class="table table-striped table-advance table-hover">
+        <h4><i class="fa fa-angle-right"></i>View All Order</h4>
+        <hr>
+        <button class="btn btn-success btn-lg" data-toggle="modal" id="new_order_btn" data-target="#addordermodal" style="margin-left: 9px;">Add New</button>
+        <div class="form-group col-md-3 pull-right">
+          <label for="usr">Search Orders By Id:</label>
+          <input type="text" class="form-control" ng-model="searchOrders">
+        </div>
+        <thead>
+          <tr>
+            <th><i class="fa fa-bullhorn"></i> Order ID</th>
+            <th class="hidden-phone"><i class="fa fa-cogs"></i>Service</th>
+            <th><i class="fa fa-map-marker"></i>Address</th>
+            <th><i class=" fa fa-"></i>Schedule On</th>
+            <th>Remark</th>
+            <th><i class=" fa fa-edit"></i>Status</th>
+            <th><i class=" fa fa-edit"></i>Actions</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="val in order_list.data | filter:searchOrders">
+            <td class="order_id" data-toggle="modal" data-target="#userinfommodal" ng-click="show_userinfo(val.user_id);">{{val.order_id}}</td>
+            <td>{{servicenames[val.service_id]}}</td>
+            <td>{{val.address}}</td>
+            <td class="ng-hide">{{val.user_email}}</td>
+            <td class="ng-hide">{{val.remark}}</td>
+            <td class="ng-hide">{{val.user_mobile}}</td>
+            <td class="ng-hide">{{val.service_id}}</td>
+              <td class="ng-hide">{{val.city}}</td>
+            <td>{{val.scheduled_date}}:{{val.scheduled_time}}</td>
+            <td ng-if="val.status == 'Assigned'"><span class="label label-warning label-mini">in progress</span></td>
+            <td ng-if="val.status== 'Booked'"><span class="label label-info label-mini">Book</span></td>
+            <td ng-if="val.status===undefined"><span class="label label-info label-mini">Due</span></td>
+            <td><button class="btn btn-success btn-xs assign_serviceman" data-service_id="{{val.service_id}}" data-id="{{val.order_id}}"
+              data-toggle="modal" data-target="#assignmodal"><i class="fa fa-check">assign</i></button>
+              <button data-id="{{val._id}}" data-toggle="modal" data-target="#" class="btn btn-primary btn-xs edit_serviceman"><i class="fa fa-eye"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- /content-panel -->
+    <!-- modal -->
+    <!--userinfommodal-->
+    <div id="userinfommodal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Order Information</h4>
+          </div>
+          <div class="modal-body">
+            <div class="panel panel-info">
+
+              <div class="panel-body">
+                <div class="row">
+
+                  <div class=" col-md-12 ">
+                    <table class="table table-user-information">
+                      <tbody>
+                        <tr>
+                          <td>Order id:</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Service Name:</td>
+                          <td></td>
+                        </tr>
+                          <tr>
+                          <td>Customer Name:</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Customer Mobile:</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Customer Email:</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Service Description:</td>
+                          <td></td>
+                        </tr>
+                         <tr>
+                          <td>Address</td>
+                          <td>{{user_info.add}}</td>
+                        </tr>
+                        <tr>
+                          <td>Remark:</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Created On:</td>
+                          <td></td>
+                        </tr>
+                        <!-- <tr>
+                          <td>Name:</td>
+                          <td>{{user_info.name}}</td>
+                        </tr>
+                        <tr>
+                          <td>Email</td>
+                          <td><a href="{{$scope.user_info.email}}">{{user_info.email}}</a></td>
+                        </tr>
+                        <tr>
+                          <td>Phone Number</td>
+                          <td>{{user_info.number}}</td>
+                        </tr> -->
+                       
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- AssignModal -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="assignmodal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Choose whom to assign..</h4>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="order_id">
+             <p>Select Servicemen or Partners</p>
+             <br/>
+             <br/>
+              <ul class="nav nav-tabs">
+                <li class="active"><button id="assign_serviceman_tab_btn" class="btn btn-default btn-block" data-toggle="tab" href="#servicemen">Servicemen</button></li>
+                <li ><button id="assign_partners_tab_btn"  class="btn btn-default btn-block" data-toggle="tab" href="#partners">Partners</button></li>
+              </ul>
+               <br/>
+             <br/>
+              <div class="tab-content">
+                <div id="servicemen" class="tab-pane fade in active">
+                  <h3>Servicemen</h3>
+                  <p>Servicemen for <span id="servicemen_city"></span></p>
+                  <p>You can select maximum 2 service men</p>
+                  <ul id="assign_servicementList"></ul>
+                </div>
+                <div  id="partners" class="tab-pane fade">
+                  <h3>Partners</h3>
+                  <p>Select partners</p>
+                  <ul id="assign_partnersList"></ul>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-theme" id="assignserviceman" type="button">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/Assign Modal -->
+
+    <!-- Add order modal -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="addordermodal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Create Order</h4>
+          </div>
+          <div class="modal-body">
+            <p>Fill Order information below.</p>
+            <form id="new_orders_from" class="form-horizontal style-form" method="post">
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">First Name</label>
+                <div class="col-sm-10">
+                  <input type="text" name="user_first_name" class="form-control" placeholder="John " required="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Last Name</label>
+                <div class="col-sm-10">
+                  <input type="text" name="user_last_name" class="form-control" placeholder="Doe " required="" >
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Mobile No</label>
+                <div class="col-sm-10">
+                  <input type="text" name="user_mobile" class="form-control numeric" placeholder="992321XXX " required="" pattern="[0-9]{1,3}" >
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Email </label>
+                <div class="col-sm-10">
+                  <input type="email" name="user_email" class="form-control" placeholder="Eg.test@gmail.com" required="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label ">Scheduled Time</label>
+                <div class="col-sm-10">
+                  <input type="text" name="scheduled_time" data-date-format="yyyy-mm-dd hh:ii" class="form-control scheduled_time" placeholder="" required="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Scheduled Date</label>
+                <div class="col-sm-10">
+                  <input type="text" name="scheduled_date" class="form-control scheduled_date" placeholder="" required="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Address</label>
+                <div class="col-sm-10">
+                  <input type="text" name="address" class="form-control address hno" placeholder="Building/House No" required="">
+                </div>
+                <label class="col-sm-2 col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                  <input type="text" name="address" class="form-control address locality" placeholder="Locality/Society" required="">
+                </div>
+                <label class="col-sm-2 col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                  <select name="address" id="ha_new_order_city">
+                    <option value="">City</option>
+                  </select>
+                </div>
+                <label class="col-sm-2 col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                  <input type="text" name="address" class="form-control address landmark" placeholder="Landmark">
+                </div>
+                <label class="col-sm-2 col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                  <input type="text" name="address" class="form-control address numeric zip" placeholder="Zip Code" required="">
+                </div>
+                <label class="col-sm-2 col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                  <input type="text" name="address" class="form-control address state" placeholder="State" required="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Service Description</label>
+                <div class="col-sm-10">
+                  <textarea type="text" name="reason" class="form-control" placeholder="" required=""></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Remark</label>
+                <div class="col-sm-10">
+                  <textarea type="text" name="remark" class="form-control" placeholder=""></textarea>
+                </div>
+              </div>
+
+              <h3>Select Services</h3>
+              <div class="steps pn"></div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+            <button class="btn btn-theme" id="add_order" type="submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- /col-md-12 -->
+</div>
+<!-- /row -->
+
+<!-- js placed at the end of the document so the pages load faster -->
+
+
+<!--script for this page-->
+
+
+<script>
+//custom select box
+jQuery(document).ready(function () {
+  jQuery('.scheduled_date').datepicker();
+  jQuery('.scheduled_time').timepicker();
+
+
+
+
+
+  //Service Checkbox active
+  var order_service_items_val=[]; //Service List
+  var order_servce_name_val = [];
+  $('.steps').on('click','label',function(){
+      var cur = $(this).prev().val();
+      var cur_service_name = $(this).text();
+      var index = order_service_items_val.indexOf(cur);
+      var index_name= order_servce_name_val.indexOf(cur_service_name);
+      if(index_name == -1){
+        order_servce_name_val.push(cur_service_name);
+      }else{
+        order_servce_name_val.splice(index, 1);
+      }
+
+      if(index == -1){
+          order_service_items_val.push(cur);
+      }else {
+          order_service_items_val.splice(index, 1);
+      }
+
+  });
+
+  //POST new Order
+  jQuery('#addordermodal #add_order').click(function (e) {
+    e.preventDefault();
+    var valid;
+    $('#addordermodal').find('input[required=""],select[required=""]').each(function(){
+        if($(this).val() == ""){
+          valid = 0;
+          var field_name = $(this).parents('.form-group').find('label').text();
+          alert(field_name+" is required");
+          if(field_name == "Address"){
+            Break;
+          }
+        }else {
+            valid = 1;
+        }
+    });
+    if(valid == 1){
+      var schedule_time = $('input[name="scheduled_time"]').val();
+      var scheduled_date = $('input[name="scheduled_date"]').val();
+      var address = $('.hno').val()+' , '+$('.locality').val()+' , '+$('#ha_new_order_city').val()+' , '+$('.landmark').val()+' , '+$('.zip').val()+' , '+$('.state').val();
+      var user_name = $('input[name="user_first_name"]').val()+' '+$('input[name="user_last_name"]').val();
+      var user_mobile = $('input[name="user_mobile"]').val();
+      var user_email = $('input[name="user_email"]').val();
+      var remark = $('input[name="remark"]').val();
+      $.post('https://handy-service-server.herokuapp.com/create/order',{service_id:order_service_items_val,service_name:order_servce_name_val,schedule_time:schedule_time,scheduled_date:scheduled_date,address:address,user_name:user_name,user_mobile:user_mobile,user_email:user_email,remark:remark}, function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+        window.location.reload()
+      });
+
+
+      // $.each(order_service_items_val,function(i,val){
+      //   jQuery.ajax({
+      //       url: 'https://handy-service-server.herokuapp.com/create/order',
+      //       type: 'POST',
+      //       data: jQuery('#addordermodal form').serialize() + '&service_id=' + val,
+      //       success: function (data) {
+      //         // swal('Saved', 'Order Has Been Saved', 'success');
+      //         // window.location.href = "";
+      //         getLastOrder();
+      //
+      //        $('.close').trigger('click');
+      //
+      //         // location.reload();
+      //       }
+      //     });
+      // });
+    }else{
+      alert("Enter correct values in the form");
+    }
+  });
+
+  //Gets the last order created by user
+  function getLastOrder(){
+    var get_user_id = $('input[name="user_email"]').val();
+    var new_order_data;
+    $.getJSON('https://handy-service-server.herokuapp.com/bookings', {user_id: get_user_id }, function(json, textStatus) {
+        /*optional stuff to do after success */
+        if(textStatus == "success"){
+          var last_order = json[json.length - 1];
+          alert("Order Id is "+last_order.order_id);
+              new_order_data += '<tr ng-repeat="val in order_list.data | filter:searchOrders" class="ng-scope">';
+              new_order_data += '<td data-toggle="modal" data-target="#userinfommodal" ng-click="show_userinfo(val.user_id);" class="ng-binding"> '+last_order.order_id+' </td>';
+              new_order_data += '<td class="ng-binding"> '+get_servicenameby_id(last_order.order_id)+' </td>';
+              new_order_data += '<td class="ng-binding"> '+$(".hno").val()+' , '+$(".locality").val()+' , '+$("#ha_new_order_city").val()+' , '+$(".landmark").val()+' , '+$(".zip").val()+' , '+$(".state").val()+' </td>';
+              new_order_data += '<td class="ng-binding"> '+$(".scheduled_date").val()+' : '+$(".scheduled_time").val()+'</td>';
+              new_order_data += '<td><button class="btn btn-success btn-xs assign_serviceman" data-service_id="" data-id="'+last_order.order_id+'" data-toggle="modal" data-target="#assignmodal"><i class="fa fa-check">assign</i></button>';
+              new_order_data += '<button data-id="5900ba8c14466f11002f6c2e" data-toggle="modal" data-target="#" class="btn btn-primary btn-xs edit_serviceman"><i class="fa fa-eye"></i></button>';
+              new_order_data += '</td></tr>';
+          $('#order_list tbody').append(new_order_data);
+        }
+    });
+  }
+
+  //Get all servicemen by city and service
+  var toggle_assign_order_state = 0;
+  $('#assignmodal').on('show.bs.modal',function(event) {
+    /* Act on the event */
+    toggle_assign_order_state = 0;
+    var order_id = jQuery('#order_id').val();
+    var servicename = $('#order_list tbody').find('tr td:first-child:contains('+order_id+')').siblings('td').eq(0).text();
+    var address =  $('#order_list tbody').find('tr td:first-child:contains('+order_id+')').siblings('td').eq(1).text();
+    var service_id = $('#order_list tbody').find('tr td:first-child:contains('+order_id+')').siblings('td').eq(5).text();
+
+    //Static For now
+    // var service_id = '58f72cd362af4611001cd613';
+    var city = address.split(",")[2].trim();
+    $('#servicemen_city').text(city);
+    // var city_new = city.split(" ")[2].trim();
+    $('#assign_servicementList').empty();
+
+    $.getJSON('https://handy-service-server.herokuapp.com/servicemen', {city:city,service_id:service_id}, function(json, textStatus) {
+        /*optional stuff to do after success */
+        $.each(json,function(index, el) {
+          $('#assign_servicementList').append('<li><input name="servicemen_id" class="servicemen_check" id="'+el._id+'" type="checkbox" value="'+el._id+'" /><label for="'+el._id+'" class="control-label" >'+el.name+'</label></li>');
+        });
+    });
+  });
+
+  var assign_servicemen_id = [];
+  $('#assign_partners_tab_btn').click(function(){
+    var partners_list;
+    toggle_assign_order_state = 1;
+    $('#assign_servicementList').find('input[type="checkbox"]').prop('checked',false);
+    assign_servicemen_id = [];
+    $('#assign_partnersList').empty();
+    if(partners_list){
+      $.each(partners_list,function(index, el) {
+        $('#assign_partnersList').append('<li><input name="partner_id" class="partners_check" id="'+el._id+'" type="radio" value="'+el._id+'" /><label for="'+el._id+'" class="col-sm-2 col-sm-2 control-label" >'+el.name+'</label></li>');
+      });
+    }else{
+      $.getJSON('https://handy-service-server.herokuapp.com/all/vendor', function(json, textStatus) {
+          /*optional stuff to do after success */
+          partners_list = json;
+          $.each(json,function(index, el) {
+            $('#assign_partnersList').append('<li><input name="partner_id" class="partners_check" id="'+el._id+'" type="radio" value="'+el._id+'" /><label for="'+el._id+'" class="control-label" >'+el.name+'</label></li>');
+          });
+      });
+    }
+  });
+
+  $('body').on('change',"input[name='servicemen_id']", function(evt) {
+    var limit = 2;
+    var index = assign_servicemen_id.indexOf($(this).val());
+     if($("input[name='servicemen_id']:checked").length > limit) {
+         $(this).prop('checked',false);
+         alert('You can select maximum ' + limit + ' servicemen!!');
+     }else{
+       if($(this).prop('checked')){
+         toggle_assign_order_state = 0;
+         assign_servicemen_id.push($(this).val());
+       }else{
+         assign_servicemen_id.splice(index, 1);
+       }
+     }
+  });
+
+  $('#assign_serviceman_tab_btn').click(function(event) {
+    /* Act on the event */
+    toggle_assign_order_state = 0;
+  });
+
+
+  //POST assign service to the order
+  jQuery('#assignserviceman').click(function () {
+    var order_id = jQuery('#order_id').val();
+    var curr_assign_btn=  $('#order_list tbody').find('tr td:first-child:contains('+order_id+')').siblings('td:last-child').find('button:first-child').text('Reassign');
+    if(toggle_assign_order_state == 0){
+        $.post('https://handy-service-server.herokuapp.com/assign/serviceman',{order_id:order_id,serviceman_id:assign_servicemen_id}, function(data, textStatus, xhr) {
+          /*optional stuff to do after success */
+          jQuery.ajax({
+                url: 'https://handy-service-server.herokuapp.com/order/status',
+                type: 'POST',
+                data: 'order_id=' + jQuery('#order_id').val() + '&status=assign',
+                success: function (data) {
+                  alert("Serviceman Has Been Assigned");
+                  swal('Saved', 'Serviceman Has Been Assigned', 'success');
+                  window.location.reload();
+                }
+              });
+        });
+    }else{
+      var partner_id = $('input[name="partner_id"]').val();
+      $.post('https://handy-service-server.herokuapp.com/assign/vendor', {order_id:order_id,vendor_id:partner_id }, function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+        window.location.reload();
+      });
+    }
+  });
+
+  //Assign modal
+
+
+  jQuery.ajax({
+    url: 'https://handy-service-server.herokuapp.com/orders/all',
+    type: 'get',
+    success: function (data) {
+      //console.log(data)
+      var order_list = '';
+      if (Object.keys(data).length > 0) {
+
+        jQuery.each(data, function (key, val) {
+
+          service_id = (typeof val.service_id !== "undefined") ? val.service_id : "Not Available";
+          address = (typeof val.address !== "undefined") ? val.address : "Not Available";
+          //console.log(get_servicenameby_id(service_id));
+          scheduled_time = (typeof val.scheduled_time !== "undefined") ? val.scheduled_time : "Not Available";
+          scheduled_date = (typeof val.scheduled_date !== "undefined") ? val.scheduled_date : "Not Available";
+          order_list += '<tr><td> ' + val.order_id + ' </td>';
+          order_list += '<td> ' + service_id + ' </td>';
+          order_list += '<td> ' + address + ' </td>';
+          order_list += '<td> ' + scheduled_date + ' : ' + scheduled_time + ' </td>';
+          order_list += '<td><span class="label label-info label-mini">Due</span></td>';
+          order_list += '<td><button class="btn btn-success btn-xs assign_serviceman" data-service_id="' + service_id + '" data-toggle="modal" data-target="#assignmodal"><i class="fa fa-check">assign</i></button><button data-id="' + val._id + '" data-toggle="modal" data-target="#" class="btn btn-primary btn-xs edit_serviceman"><i class="fa fa-eye"></i></button> </td></tr>';
+        });
+        //jQuery('#order_list tbody').html(order_list);
+      }
+    }
+  });
+  jQuery.ajax({
+    url: 'https://handy-service-server.herokuapp.com/services',
+    //data:'service_id=58c6ed9b82185211004244fa',
+    type: 'get',
+    success: function (data) {
+      //console.log(data)
+      service = '';
+      if (Object.keys(data).length > 0) {
+        jQuery.each(data, function (key, val) {
+          service += '<input id="op' + key + '" class="opt" name="op1" type="radio" style="opacity: 0;" value="' + val._id + '"><label for="op' + key + '" class="col-sm-2 col-sm-2 control-label">' + val.name + '</label>';
+        });
+        //console.log(service);
+        jQuery('#addordermodal .steps.pn').html(service)
+      }
+    }
+  });
+
+
+  jQuery('#order_list').on('click', '.assign_serviceman', function () {
+
+    id = jQuery(this).data('service_id');
+    order_id = jQuery(this).data('id');
+    jQuery('#order_id').val(order_id);
+  });
+});
+
+
+function get_servicenameby_id(id) {
+  servicename = '';
+  jQuery.ajax({
+    url: 'https://handy-service-server.herokuapp.com/service',
+    type: 'get',
+    data: 'service_id=' + id,
+    dataType: 'json',
+    async: false,
+    success: function (data) {
+      servicename = data['0'].name;
+    }
+  });
+  return servicename;
+}
+$(function () {
+  //  $('select.styled').customSelect();
+});
+</script>
+
+<script>
+  $(document).ready(function() {
+    //Load the active cities
+    var acitve_cities;
+    $('#new_order_btn').click(function(){
+      $('form#new_orders_from input').not('input[name="scheduled_time"]').val("");
+      $('#ha_new_order_city').val(0);
+      $('.steps').empty();
+      if(!acitve_cities){
+        $.getJSON("https://handy-service-server.herokuapp.com/locations/enabled", function(data, status){
+        acitve_cities = data;
+        if(status == "success"){
+          $.each(acitve_cities,function(index,val){
+            //Loads active cities in the modal
+            $('#ha_new_order_city').append('<option index="'+val._id+'" value="'+val.city_name+'">'+val.city_name+'</option>');
+          });
+        }
+       });
+      }
+    });
+
+    //Change the Services according to the cities available
+    $('#ha_new_order_city').change(function(){
+      var selectedCity = $(this).val();
+      $.getJSON("https://handy-service-server.herokuapp.com/services/city", {'city':selectedCity},function(data, status){
+        if(status == "success"){
+          $('.steps').html('');
+           $.each(data,function(index,val){
+            $('.steps').append("<input id='op"+index+"' name='op"+index+"' type='checkbox' value='"+val._id+"' />"+
+                "<label for='op"+index+"' class='col-sm-2 col-sm-2 control-label'>"+val.name+"</label>");
+          });
+        }
+      });
+    });
+
+    //Open Modal on Click
+    $('#order_list').on('click','.order_id',function(){
+      var order_id = $(this).text();
+      var service = $(this).parent().children().eq(1).text();
+      var address = $(this).parent().children().eq(2).text();
+      var email = $(this).parent().children().eq(3).text();
+      var remark = $(this).parent().children().eq(4).text();
+      var phone = $(this).parent().children().eq(5).text();
+
+      var modal_table = $('#userinfommodal').find('table');
+      modal_table.find('td').each(function(i,v){
+        var modal_heading = $(this).text();
+        if(modal_heading  != ""){
+          if(modal_heading == "Order id:"){
+            $(this).next().text(order_id);
+          }
+          if(modal_heading == "Service Name:"){
+            $(this).next().text(service);
+          }
+          if(modal_heading == "Address"){
+            $(this).next().text(address);
+          }
+          if(modal_heading == "Customer Email:"){
+            $(this).next().text(email);
+          }
+          if(modal_heading == "Remark:"){
+            $(this).next().text(remark);
+          }
+          if(modal_heading == "Customer Mobile:"){
+            $(this).next().text(phone);
+          }
+        }
+      });
+
+
+    });
+
+    //Runtime validations
+    $('input[type="email"]').on('change',function(){ checkValidationEmail($(this).val()); });
+    $('input[name="user_mobile"]').on('change',function(){ phoneNumberValidation($(this).val()); });
+
+    //Phone no validation
+    function phoneNumberValidation(val){
+      if(!val.match('[0-9]{10}'))  {
+                  alert("Please put 10 digit mobile number");
+                  return false;
+          }
+          return true;
+    }
+
+    //Email validation function
+    function isValidEmailAddress(emailAddress) {
+        var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+        return pattern.test(emailAddress);
+    };
+    function checkValidationEmail(val){
+      if(!isValidEmailAddress(val)){
+        alert("Enter a valid Email");
+        return false;
+      }
+      return true;
+    }
+    function reloadWindow(){
+      window.location.reload();
+    }
+
+
+    //Number only validation
+      $(".numeric").keypress(function (e) {
+      //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            alert("Enter valid input | Numbers only")
+               return false;
+             }
+      });
+
+  });
+
+
+
+</script>

@@ -1,0 +1,424 @@
+
+<div class="row mt" ng-controller="inhouse_controller">
+  <div class="col-md-12">
+    <div class="content-panel">
+
+      <table class="table table-striped table-advance table-hover">
+        <h4><i class="fa fa-angle-right"></i>View IN-House Members</h4>
+        <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#addordermodal">Add New</button>
+        <hr>
+        <div loading style="text-align: center;"><img src="../assets/img/Preloader_1.gif"/> </div>
+        <thead>
+          <tr>
+            <th>Profile</th>
+            <th><i class="fa fa-bullhorn"></i> Name</th>
+            <th><i class="fa fa-cogs"></i>Role</th>
+            <th><i class="fa fa-map-phone"></i>Mobile</th>
+            <th><i class=" fa fa-envelope"></i>Email</th>
+            <th>Address</th>
+            <th><i class=" fa fa-edit"></i>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in services">
+            <td  ><img src="{{x.photo}}" style="width:150px;height:150px"/></td>
+            <td  >{{x.name}}</td>
+            <td  >{{x.role}}</td>
+            <td  >{{x.number}}</td>
+            <td  >{{x.email}}</td>
+            <td>
+              <button data-id="{{x._id}}" ng-click="show_inhouseinfo(x._id)" class="btn btn-primary btn-xs edit_serviceman"><i class="fa fa-eye"></i></button>
+              <button data-target="" ng-click="edit_inhouse(x._id)" style="margin-left: 3px;" data-id="{{x._id}}"  class="btn btn-danger btn-xs editinhouse" ><span class="glyphicon glyphicon-pencil"></span></button>
+              <button data-id="{{x._id}}" class="btn btn-danger btn-xs del_serviceman" ng-click="del_inhouse(x._id)"><i class="fa fa-trash-o "></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- /content-panel -->
+ 
+
+    <!-- modal -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="addordermodal" class="modal fade">
+     
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Add In-House</h4>
+          </div>
+          <div class="modal-body">
+            <p>Fill All information below.</p>
+            <form class="form-horizontal style-form" method="get">
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">First Name</label>
+                <div class="col-sm-10">
+                  <input type="text" id="first_name" class="form-control" placeholder="Eg.Piyush">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Last Name</label>
+                <div class="col-sm-10">
+                  <input type="text" id="last_name" class="form-control" placeholder="Eg. Dixit">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Mobile Number</label>
+                <div class="col-sm-10">
+                  <input type="number" id="mobile" class="form-control" placeholder="Eg. 9876543210">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="text" id="email" class="form-control" placeholder="Eg. abc@abc.com">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="text" id="pass" class="form-control" placeholder="Eg. abc@abc.com">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Photo</label>
+                <div class="col-sm-5">
+                  <input type="hidden" id="vphoto" class="form-control" placeholder="eg. mata rani ka mandir etc.">
+                  <button type="button" id="vupload_img" name="file" class="form-control" placeholder="eg. mata rani ka mandir etc.">Upload</button>
+                </div>
+                <div class="col-sm-5">
+                  <img id="inhouse-photo" class="img-responsive" width="80" height="80" src="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Date Of Birth</label>
+                <div class="col-sm-10">
+                  <div id="vdob"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Building Name/No.</label>
+                <div class="col-sm-10">
+                  <input type="text" id="in_addres_building" data-date-format="yyyy-mm-dd" class="form-control" value="{{editinhouse_info.address}}" placeholder="eg. mata rani ka mandir etc.">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Society/Locality</label>
+                <div class="col-sm-10">
+                  <input type="text" id="in_addres_society" data-date-format="yyyy-mm-dd" class="form-control" value="{{editinhouse_info.address}}" placeholder="eg. mata rani ka mandir etc.">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Landmark</label>
+                <div class="col-sm-10">
+                  <input type="text" id="in_addres_landmark" data-date-format="yyyy-mm-dd" class="form-control" value="{{editinhouse_info.address}}" placeholder="eg. mata rani ka mandir etc.">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">City</label>
+                <div class="col-sm-10">
+                  <select name="location"  class="form-control" placeholder="eg.A-1101">
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">State</label>
+                <div class="col-sm-10">
+                  <input type="text" disabled="" name="state" id="state" class="form-control" placeholder="eg.A-1101">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Zip Code</label>
+                <div class="col-sm-10">
+                  <input type="text" name="" id="zip_code" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Role</label>
+                <div class="col-sm-10">
+                  <select id="role" class="form-control service_list input-md"  style="height: calc(2.25rem + 8px);">
+                    <option  value="">Select Role</option>
+                    <option ng-repeat="x in role" value="{{x.table_name}}">{{x.table_name}}</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+            <button class="btn btn-theme" id="inhouse_submit" type="button">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /col-md-12 -->
+</div><!-- /row -->
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit_inhouse" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Edit IN-House</h4>
+      </div>
+      <div class="modal-body">
+        <p>Fill All information below.</p>
+        <form class="form-horizontal style-form" method="get">
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">First Name</label>
+            <div class="col-sm-10">
+              <input type="text" id="e_first_name" class="form-control" placeholder="Eg.Piyush" value="{{editinhouse_info.name.split(' ')[0]}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Last Name</label>
+            <div class="col-sm-10">
+              <input type="text" id="e_last_name" class="form-control" placeholder="Eg. Dixit" value="{{editinhouse_info.name.split(' ')[1]}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Mobile Number</label>
+            <div class="col-sm-10">
+              <input type="number" id="e_mobile" class="form-control" placeholder="Eg. 9876543210" value="{{editinhouse_info.mobile}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+              <input type="text" id="e_email" class="form-control" placeholder="Eg. abc@abc.com" value="{{editinhouse_info.email}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Gender</label>
+            <div class="col-sm-10">
+              <input type="text" id="e_gender" class="form-control" placeholder="Eg. abc@abc.com" value="{{editinhouse_info.email}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Date of birth</label>
+            <div class="col-sm-10">
+              <div id="e_dob"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+              <input type="text" id="e_pass" class="form-control" placeholder="Eg. abc@abc.com" value="{{editinhouse_info.pass}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Photo</label>
+            <div class="col-sm-5">
+              <input type="hidden" id="e_vphoto" class="form-control" placeholder="eg. mata rani ka mandir etc.">
+              <button type="button" id="e_vupload_img" name="file" class="form-control" placeholder="eg. mata rani ka mandir etc.">Upload</button>
+            </div>
+            <div class="col-sm-5">
+              <img id="e_photo" src="{{editinhouse_info.photo}}" width="50" height="50">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Building Name/No.</label>
+            <div class="col-sm-10">
+              <input type="text" id="e_in_addres_building" data-date-format="yyyy-mm-dd" class="form-control" value="{{editinhouse_info.address}}" placeholder="eg. mata rani ka mandir etc.">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Society/Locality</label>
+            <div class="col-sm-10">
+              <input type="text" id="e_in_addres_society" data-date-format="yyyy-mm-dd" class="form-control" value="{{editinhouse_info.address}}" placeholder="eg. mata rani ka mandir etc.">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Landmark</label>
+            <div class="col-sm-10">
+              <input type="text" id="e_in_addres_landmark" data-date-format="yyyy-mm-dd" class="form-control" value="{{editinhouse_info.address}}" placeholder="eg. mata rani ka mandir etc.">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">City</label>
+            <div class="col-sm-10">
+              <select name="location" id="e_location" class="form-control" placeholder="eg.A-1101">
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">State</label>
+            <div class="col-sm-10">
+              <select name="state" id="e_state" class="form-control" placeholder="eg.A-1101">
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Zip Code</label>
+            <div class="col-sm-10">
+              <input type="text" name="" id="e_zip_code" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Role</label>
+            <div class="col-sm-10">
+              <select id="e_role" class="form-control service_list input-md"  style="height: calc(2.25rem + 8px);">
+                <option  value="">Select Role</option>
+              </select>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <input type="hidden" ng-model="inhouse_id" id="inhouse_id" name="">
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+        <button class="btn btn-theme" id="inhouse_update" type="button">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="view_inhouse" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">View IN-House</h4>
+      </div>
+      <div class="modal-body">
+        <p>Fill All information below.</p>
+        <form class="form-horizontal style-form" method="get" >
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_first_name">{{inhouse_info.name}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Gender</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_gender"></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Mobile Number</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_number">{{inhouse_info.mobile}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Date of Birth</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_dob">{{inhouse_info.dob}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_email">{{inhouse_info.email}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Photo</label>
+            <div class="col-sm-10">
+              <img src="" id="l_photo" style="width:155px;height:auto;">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Role</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_role">{{inhouse_info.role}}</label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+  // jQuery('#vdob').datepicker({changeYear: true, yearRange : 'yy-50:yy+1'});
+  $("#vdob,#e_dob").birthdayPicker({
+    "maxYear": "2000",
+    "maxAge": 90,
+    "monthFormat":"short"
+  });
+  //Initialize roles
+  var allroles;
+  $.get('https://handy-service-server.herokuapp.com/responsibilities', function(data, textStatus) {
+    /*optional stuff to do after getScript */
+    allroles = data;
+    console.log(data);
+    $.each(allroles,function(index, el) {
+      $('#e_role').append('<option id="'+el._id+'"">'+el.table_name+'</option>');
+    });
+  });
+
+  $('select[name="location"]').on('click','option',function(event) {
+    /* Act on the event */
+    var state = $(this).attr('data-state');
+    $('#state').val(state);
+  });
+
+  //custom select box
+  $( "#inhouse_submit" ).click(function() {
+    var in_address = $('#in_addres_building').val()+','+ $('#in_addres_society').val()+','+$('#in_addres_landmark').val()+','+$('#addordermodal').find('select[name="location"]').val()+','+$('#addordermodal').find('#state').val()+$('#addordermodal').find('#zip_code').val();
+    if(jQuery('#first_name').val() !=='' && jQuery('#last_name').val() !=='' && jQuery('#role').val && jQuery('#mobile').val() !=='' && jQuery('#email').val() !=='' && jQuery('#vphoto').val() !=='' && $('input[name="vdob_birthDay"]').val() !=='' && jQuery('[name=location]').val() !=='' &&  jQuery('#zip_code').val() !=='' && jQuery('#pass').val()!='' && jQuery('#role').val()!=''){
+      $.post('https://handy-service-server.herokuapp.com/inhouse',{name:$('#first_name').val()+' '+$('#last_name').val(),role:$('#addordermodal').find('#role').val(),mobile:$('#addordermodal').find('#mobile').val(),email:$('#addordermodal').find('#email').val(),photo:$('#vphoto').val(),address:in_address,location:$('#addordermodal').find('select[name="location"]').val(),pass:$('#addordermodal').find('#pass').val(),createdBy:localStorage.getItem("adminName")}, function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+        console.log(data)
+        swal('Success','Data Inserted Successfully ','success');
+        setTimeout(function(){
+          window.location.reload();
+        },2000);
+      });
+
+    }else{
+      swal('Error','All Fiels Required','error');
+    }
+  });
+
+  $( "#inhouse_update" ).click(function() {
+    var e_address = $('#e_in_addres_building').val()+','+$('#e_in_addres_society').val()+','+$('#e_in_addres_landmark').val()+','+$('#e_location').val()+','+$('#e_state').val();
+    $.post('https://handy-service-server.herokuapp.com/inhouse/update', {name:$('#e_first_name').val()+' '+$('#e_last_name').val(),role:$('#e_role').val(),mobile:$('#e_mobile').val(),email:$('#e_email').val(),photo:$('#e_vphoto').val(),address:e_address,location:$('#e_location').val(),pass:$('#e_pass').val(),createdBy:localStorage.getItem("adminName")}, function(data, textStatus, xhr) {
+      /*optional stuff to do after success */
+      console.log(data)
+      swal('Success','Data Inserted Successfully ','success');
+      setTimeout(function(){
+        window.location.reload();
+      },2000);
+    });
+  });
+
+  var myDropzone2 = new Dropzone("button#vupload_img", { url: "https://handy-service-server.herokuapp.com/image"});
+
+  //var myDropzone2 = new Dropzone("button#vupload_img", { url: "/invokertech/upload_img.php?image_type=inhouse"});
+
+  myDropzone2.on("addedfile", function(file) {
+    jQuery('#preloader').show();
+  });
+  myDropzone2.on("complete", function(file) {
+    myDropzone2.removeFile(file);
+  });
+  myDropzone2.on("success", function(file, response) {
+    //console.log(file);
+    jQuery('#vphoto').val(response.url);
+    jQuery('#inhouse-photo').attr('src',response.url);
+    jQuery('#preloader').hide();
+  });
+  jQuery.ajax({
+    url:'https://handy-service-server.herokuapp.com/locations',
+    success:function(data){
+      console.log(data);
+      var city = '<option></option>';
+      if(Object.keys(data).length>0){
+        jQuery.each(data,function(key,val){
+          if(val.enabled){
+            city +='<option data-state="'+val.state_name+'" value="'+val._id+'">'+val.city_name+'</option>';
+          }
+        });
+        jQuery('[name=location]').html(city);
+        //$('[name=location]').selectpicker();
+      }
+    }
+  });
+  </script>
+
+</body>
+</html>

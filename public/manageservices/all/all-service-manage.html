@@ -1,0 +1,576 @@
+
+<div class="row mt">
+  <div class="col-md-12">
+    <div class="content-panel">
+      <div loading style="text-align: center;"><img src="../assets/img/Preloader_1.gif"/> </div>
+      <table id="all_service" class="table table-striped table-advance table-hover">
+        <h4><i class="fa fa-angle-right"></i>View All Services</h4>
+        <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#addordermodal">Add New Service</button>
+        <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#hmp_base_price">HMP base price</button>
+        <hr>
+        <thead>
+          <tr>
+            <th><i class="fa fa-bullhorn"></i> Serice ID</th>
+            <th class="hidden-phone"><i class="fa fa-cogs"></i>Servie Name</th>
+            <th><i class="fa fa-map-marker"></i>Icon</th>
+            <th><i class=" fa fa-"></i>Description</th>
+            <th><i class=" fa fa-"></i>Location</th>
+            <th><i class=" fa fa-edit"></i>Status</th>
+            <th><i class=" fa fa-edit"></i>Actions</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div><!-- /content-panel -->
+    <!-- Modal -->
+    <div aria-hidden="true" aria-labelledby="hmp_base_price" role="dialog" tabindex="-1" id="hmp_base_price" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">HMP base price</h4>
+          </div>
+          <div class="modal-body">
+            <p>Home Make over packages base price</p>
+            <input type="text" name="hmp_base" placeholder="Rs." autocomplete="off" class="numeric form-control placeholder-no-fix">
+
+          </div>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+            <button class="btn btn-theme" id="hmp_base_price_btn" type="button">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--edit service -->
+
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit_service_modal" class="modal fade">
+      <div loading style="text-align: center;"><img src="../assets/img/Preloader_1.gif"/> </div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Edit New Service</h4>
+          </div>
+          <div class="modal-body">
+            <p>Fill Service information below.</p>
+            <form class="form-horizontal style-form" method="get">
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Service Name</label>
+                <div class="col-sm-10">
+                  <input type="text" name="name" class="form-control" placeholder="Eg.Piyush">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Location</label>
+                <div class="col-sm-10">
+                  <select name="location" class="form-control" multiple="multiple">
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Photo</label>
+                <div class="col-sm-10">
+                  <input type="hidden" name="icona" class="form-control" placeholder="eg. mata rani ka mandir etc.">
+                  <button type="file" name="icon" id="upload_img" class="form-control dz-clickable" placeholder="eg. mata rani ka mandir etc.">Upload</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Description</label>
+                <div class="col-sm-10">
+                  <textarea name="description" style="margin-top: 0px; margin-bottom: 0px; height: 150px;resize: none;"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="package" class="col-sm-2 col-sm-2 control-label">Inclue in package</label>
+                <div class="col-sm-10">
+                  <input id="package" type="checkbox" name="includeInPackage" value="true"></input>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                <button class="btn btn-theme"  id="add_service" type="button">Submit</button>
+                <button class="btn btn-success modal-toggle-btn" data-toggle="modal" data-target="#addservicepricemodal">Add Service Price</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+  <!-- modal -->
+  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="addordermodal" class="modal fade">
+    <div loading style="text-align: center;"><img src="../assets/img/Preloader_1.gif"/> </div>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Create New Service</h4>
+        </div>
+        <div class="modal-body">
+          <p>Fill Service information below.</p>
+          <form class="form-horizontal style-form" method="get">
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Service Name</label>
+              <div class="col-sm-10">
+                <input type="text" name="name" class="form-control" placeholder="Eg.Piyush">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Location</label>
+              <div class="col-sm-10">
+                <select name="location" class="form-control" multiple="multiple">
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Photo</label>
+              <div class="col-sm-10">
+                <input type="hidden" name="icona" class="form-control" placeholder="eg. mata rani ka mandir etc.">
+                <button type="file" name="icon" id="upload_img" class="form-control dz-clickable" placeholder="eg. mata rani ka mandir etc.">Upload</button>
+              </div>
+
+              <div class="col-sm-4"></div>
+              <div class="col-sm-6">
+                <br>
+                <img src="" id="upload_img_preview" />
+              </div>
+              <div class="col-sm-3"></div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Description</label>
+              <div class="col-sm-10">
+                <textarea name="description" style="margin-top: 0px; margin-bottom: 0px; height: 150px;resize: none;"></textarea>
+              </div>
+            </div>
+
+
+            <div class="modal-footer">
+              <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+              <button class="btn btn-theme"  id="add_service" type="button">Submit</button>
+              <button class="btn btn-success modal-toggle-btn" data-toggle="modal" data-target="#addservicepricemodal">Add Service Price</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- modal -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="addservicepricemodal" class="modal fade">
+      <div loading style="text-align: center;"><img src="../assets/img/Preloader_1.gif"/> </div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Add Service Price</h4>
+          </div>
+          <div class="modal-body">
+            <p>Fill Service information below.</p>
+            <form class="form-horizontal style-form" method="get">
+              <div class="form-group row">
+                <div class="col-sm-6">
+                  <input type="text" name="catname" class="form-control" placeholder="Category 1">
+                  <input type="text" name="catname" class="form-control" placeholder="Category 2">
+                  <input type="text" name="catname" class="form-control" placeholder="Category 3">
+                  <input type="text" name="catname" class="form-control" placeholder="Category 4">
+                  <input type="text" name="catname" class="form-control" placeholder="Category 5">
+                  <input type="text" name="catname" class="form-control" placeholder="Category 6">
+                </div>
+                <div class="col-sm-6">
+                  <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+                  <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+                  <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+                  <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+                  <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+                  <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Comments</label>
+                <div class="col-sm-10">
+                  <textarea name="description" style="margin-top: 0px; margin-bottom: 0px; height: 150px;resize: none;"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                <button class="btn btn-success modal-toggle-btn" data-toggle="modal" data-target="#addordermodal">Add Service Price</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div><!-- /col-md-12 -->
+</div><!-- /row -->
+
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="priceModal" class="modal fade">
+  <div loading style="text-align: center;"><img src="../assets/img/Preloader_1.gif"/> </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">VIEW/UPDATE Service Price</h4>
+      </div>
+      <div class="modal-body">
+        <p>Fill Service information below.</p>
+        <form class="form-horizontal style-form" method="get">
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <input type="text" name="catname" class="form-control" placeholder="Category 1">
+              <input type="text" name="catname" class="form-control" placeholder="Category 2">
+              <input type="text" name="catname" class="form-control" placeholder="Category 3">
+              <input type="text" name="catname" class="form-control" placeholder="Category 4">
+              <input type="text" name="catname" class="form-control" placeholder="Category 5">
+              <input type="text" name="catname" class="form-control" placeholder="Category 6">
+            </div>
+            <div class="col-sm-6">
+              <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+              <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+              <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+              <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+              <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+              <input type="text" name="catprice" disabled="disabled" class="form-control" placeholder="Price">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Comments</label>
+            <div class="col-sm-10">
+              <textarea name="description" style="margin-top: 0px; margin-bottom: 0px; height: 150px;resize: none;"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+//custom select box
+
+jQuery(document).ready(function(){
+  //Numeric only
+  $(".numeric").on('keypress',function (e) {
+  //if the letter is not digit then display error and don't type anything
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        alert("Enter valid input | Numbers only")
+           return false;
+         }
+  });
+
+  //HMP base price
+  $('#hmp_base_price_btn').click(function(event) {
+    /* Act on the event */
+    var hmp_base_price = $('input[name="hmp_base"]').val();
+    // $.post('', param1: hmp_base_price, function(data, textStatus, xhr) {
+    //   /*optional stuff to do after success */
+    //   window.location.reload();
+    // });
+
+  });
+
+
+
+
+  $('body').on('click','.pricemodal',function(){
+    var service_id = $(this).text();
+  });
+
+
+  var category_arr = [];
+
+  $('.modal-toggle-btn').on('click',function(){
+    var modal_id = $(this).parents('.modal').attr('id');
+    $('#'+modal_id).modal('hide');
+
+  });
+
+
+  $('input[name="catname"]').on('change',function(){
+    var index = $(this).index();
+    if($(this).val()){
+      $(this).parent().next().find('input').eq(index).prop('disabled',false);
+    }else{
+      $(this).parent().next().find('input').eq(index).prop('disabled',true);
+    }
+  });
+
+
+
+  jQuery('#all_service').on('click','.edit_service',function(){
+    id = jQuery(this).data('id');
+    jQuery('[name=service_id]').val(id);
+    jQuery.ajax({
+      url:'https://handy-service-server.herokuapp.com/service',
+      data:'service_id='+id,
+
+      type:'get',
+      success:function(data){
+        if(typeof data.message==='undefined'){
+          console.log(data);
+          if(Object.keys(data[0]).length>0){
+            (data['0'].enabled)?jQuery('[name=status]').prop('checked',true):'';
+            jQuery('[name=description]').val(data[0].description);
+            jQuery('[name=name]').val(data[0].name);
+            jQuery('#uploaded_icon').attr('src',data['0'].icon);
+            jQuery('[name=icona]').val(data[0].icon);
+            //jQuery('[name=location]').val(data[0].location);
+            console.log(data[0].location);
+
+            location_ = data[0].location;
+            console.log(location_)
+            $('[name=location]').selectpicker('val',location_);
+            jQuery('[name=location_]').val(data[0].location);
+            //jQuery('[name=location]').val(jQuery('[text='+data[0].location+']'));
+          }
+        }
+      }
+    });
+  });
+
+  jQuery('#all_service').on('click','.enabled_service',function(){
+    id = jQuery(this).data('id');
+    swal({
+      title: "Are you sure? ",
+      text: "Service Will Be Enabled",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes, enable it!",
+      cancelButtonText: "No, cancel plx!",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        jQuery.ajax({
+          url:'https://handy-service-server.herokuapp.com/enable/service',
+          data:'id='+id,
+          type:'POST',
+          success:function(data){
+            swal("Saved", "Service Has Not Been enabled :)", "success");
+            setTimeout(function(){window.location.href=""},1000);
+          }
+        });
+      } else {
+        swal("Cancelled", "Cancelled :)", "error");
+      }
+    });
+  });
+
+
+  jQuery('#all_service').on('click','.disable_service',function(){
+    id = jQuery(this).data('id');
+    var r = confirm("Are you sure you want to disable ?");
+    if (r == true) {
+      jQuery.ajax({
+        url:'https://handy-service-server.herokuapp.com/disable/service',
+        data:'id='+id,
+        type:'POST',
+        success:function(data){
+          swal("Saved", "Service Has Been Disabled :)", "success");
+          setTimeout(function(){window.location.reload()},1000);
+        }
+      });
+    }
+  });
+
+  jQuery('#all_service').on('click','.enable_service',function(){
+    id = jQuery(this).data('id');
+    jQuery.ajax({
+      url:'https://handy-service-server.herokuapp.com/enable/service',
+      data:'id='+id,
+      type:'POST',
+      success:function(data){
+        swal("Saved", "Service Has Been Enable:)", "success");
+        setTimeout(function(){window.location.reload()},1000);
+      }
+    });
+  });
+
+  var myDropzone1 = new Dropzone("#addordermodal button#upload_img", { url: "https://handy-service-server.herokuapp.com/image"});
+
+  myDropzone1.on("addedfile", function(file) {
+    jQuery('#imgpreloader').show();
+  });
+  myDropzone1.on("complete", function(file) {
+    myDropzone1.removeFile(file);
+  });
+  myDropzone1.on("success", function(file, response) {
+    //console.log(file);
+    jQuery('[name=icona]').val(response.url);
+    $('#upload_img_preview').attr('src',response.url);
+    $('#upload_img_preview').css({
+      width:'200px',height:'200px'
+    });
+    jQuery('#imgpreloader').hide();
+    console.log(response);
+  });
+
+  var myDropzone2 = new Dropzone("#edit_service_modal button#upload_img", { url: "https://handy-service-server.herokuapp.com/image"});
+  myDropzone2.on("complete", function(file) {
+    myDropzone2.removeFile(file);
+  });
+  myDropzone2.on("success", function(file, response) {
+    //console.log(file);
+    jQuery('[name=icona]').val(response.url);
+    console.log(response);
+    jQuery('#uploaded_icon').attr('src',response.url);
+  });
+
+  jQuery.ajax({
+    url:'https://handy-service-server.herokuapp.com/services',
+    type:'get',
+    beforeSend:function(){jQuery('#preloader').show()},
+    success:function(data){
+      console.log(data)
+      var order_list = '';
+
+      if(Object.keys(data).length>0){
+        data =  data.reverse();
+        jQuery.each(data,function(key,val){
+          enabled = (val.enabled)?'Enabled':"Disabled";
+          enb_btn = (val.enabled)?'<button data-id="'+val._id+'" class="btn btn-danger btn-xs disable_service"><i class="fa fa-times">Disable</i></button>':'<button data-id="'+val._id+'" class="btn btn-primary btn-xs enable_service"><i class="fa fa-check">Enable</i></button>';
+          btn = (val.enabled)?'<button data-id="'+val._id+'" class="btn btn-primary btn-xs disable_service"><i class="fa fa-check">Enable</i></button>':'<button data-id="'+val._id+'" class="btn btn-danger btn-xs enabled_service"><i class="fa fa-times">Disable</i></button>';
+          order_list +='<tr><td><a class="pricemodal" data-toggle="modal" data-target="#priceModal" >'+val._id+'</a></td>';
+          order_list +='<td>'+val.name+'</td>';
+          order_list +='<td><img width="60" height="60" src="'+val.icon+'" alt="Smiley face"></td>';
+          order_list +='<td ><p style="width:78%;word-break: break-all">'+val.description+'</p></td>';
+          order_list +='<td>'+val.location+'</td>';
+          order_list +='<td><span class="label label-info label-mini">'+enabled+'</span></td>';
+          order_list +='<td>'+enb_btn+'<button data-id="'+val._id+'" data-toggle="modal" data-target="#edit_service_modal" class="edit_service btn btn-primary btn-xs "><i class="fa fa-eye"></i></button> <button data-id="'+val._id+'" class="btn btn-danger btn-xs del_service"><i class="fa fa-trash-o "></i></button></td></tr>';
+        });
+        jQuery('#preloader').hide();
+        jQuery('#all_service tbody').html(order_list);
+      }
+    }
+  });
+
+
+
+  jQuery.ajax({
+    url:'https://handy-service-server.herokuapp.com/locations',
+    success:function(data){
+      var city = '<option></option>';
+      if(Object.keys(data).length>0){
+        jQuery.each(data,function(key,val){
+          if(val.enabled){
+            city +='<option value="'+val.city_name+'">'+val.city_name+'</option>';
+          }
+
+        });
+        console.log(city);
+        jQuery('[name=location]').html(city);
+        // $('[name=location]').selectpicker();
+
+      }
+    }
+  });
+
+
+
+  jQuery('#edit_service_modal #edit_service').click(function(event){
+    event.preventDefault();
+    var service=[];
+    jQuery.ajax({
+      url:'https://handy-service-server.herokuapp.com/update/service ',
+      data:{id:jQuery('[name=service_id]').val(),name:jQuery('#edit_service_modal [name=name]').val(),location:jQuery('#edit_service_modal [name=location]').val(), icon:jQuery('#edit_service_modal [name=icona]').val(), description:jQuery('#edit_service_modal [name=description]').val()},
+      type:'POST',
+      success:function(data){
+        window.location.href="";
+      }
+    });
+  });
+
+  var selected_cities=[];
+  jQuery('#addordermodal #add_service,#add_service_price').click(function(event){
+    event.preventDefault();
+
+    $('select[name="location"] :selected').each(function(i, sel){
+      selected_cities[i] = $(this).val();
+    });
+
+    var cities = JSON.stringify(selected_cities);
+    console.log(cities);
+
+    // if($('#addordermodal input[name="name"]').val()!='' && $('#addordermodal input[name="icona"]').val()!='' && $('#addordermodal input[name="description"]').val()!=''){
+
+      $('input[name="catprice"]').each(function(i,v){
+        var index = $(this).index();
+        var price = $(this).val();
+        var cat_name = $(this).parent().prev().find('input').eq(index).val();
+        if($(this).val()){
+          var car_index = category_arr.indexOf({option:cat_name,amount:price});
+          if(car_index == -1){
+            category_arr.push({option:cat_name,amount:price});
+            console.log(category_arr);
+          }else{
+            category_arr.splice(car_index, 1);
+          }
+        }
+      });
+      var myJsonString = JSON.stringify(category_arr);
+
+      $.post('https://handy-service-server.herokuapp.com/add/service',{name:jQuery('#addordermodal [name=name]').val(),location:cities, icon:jQuery('#addordermodal [name=icona]').val(), description:jQuery('#addordermodal [name=description]').val()}, function(data, textStatus, xhr) {
+        /*optional stuff to do after success */
+        if(myJsonString != ""){
+          $.post('https://handy-service-server.herokuapp.com/add/price/options?id='+data.message, {'arr': myJsonString}, function(data, textStatus, xhr) {
+            /*optional stuff to do after success */
+            window.location.reload();
+          });
+        }else{
+            window.location.reload();
+        }
+
+      });
+    // }else{
+    //   swal('Error','All Field Required','error');
+    // }
+  });
+
+  jQuery('#all_service').on('click','.del_service',function(){
+    id = jQuery(this).data('id');
+    var r = confirm("Are you sure you want to delete ?");
+    if (r == true) {
+      jQuery.ajax({
+        url:'https://handy-service-server.herokuapp.com/delete/service',
+        data:'id='+id,
+        type:'POST',
+        success:function(data){
+          if(data.message=='Service deleted.'){
+            setTimeout(function(){
+              window.location.reload();
+            },1000);
+          }
+        }
+      });
+    }
+
+  });
+
+
+});
+$(function(){
+  $('select.styled').customSelect();
+});
+
+</script>
+
+</body>
+</html>

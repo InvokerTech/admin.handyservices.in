@@ -1,0 +1,38 @@
+<div class="row mt" ng-controller="CallbackController as vm">
+    <div class="col-md-12">
+        <div class="content-panel">
+             <div loading style="text-align: center;"><img src="../assets/img/Preloader_1.gif"/></div>
+            <table id="callback_req" class="table table-striped table-advance table-hover">
+                <h4><i class="fa fa-angle-right"></i>Call Back Requests</h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th><i class="fa fa-bullhorn"></i> Ref ID</th>
+                        <th><i class="fa fa-user"></i>Name</th>
+                        <th><i class="fa fa-phone"></i>Mobile</th>
+                        <th><i class="fa fa-envelope"></i>Email</th>
+                        <th><i class="fa fa-map-marker"></i>City</th>
+                        <th><i class=" fa fa-"></i>Message</th>
+                        <th><i class=" fa fa-calendar"></i>Created On</th>
+                         <th><i class=" fa fa-edit"></i>Remarks</th>
+                        <th><i class=" fa fa-"></i>Status</th>
+
+                        <!--  <th><i class=" fa fa-edit"></i>Actions</th>
+                                  <th></th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="callback in vm.callbacks track by $index">
+                        <td>{{callback.ref_id}}</td>
+                        <td><span class="label label-info label-mini">{{callback.status}}</span></td>
+                        <td>{{callback.user_id}}</td>
+                        <td>{{callback.name}}</td>
+                        <td>{{callback.mobile}}</td>
+                        <td>{{callback.email}}</td>
+                        <td>{{callback.location}}</td>
+                        <td>{{ callback.created_at | date }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+</div>

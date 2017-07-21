@@ -1,0 +1,75 @@
+
+
+              <div class="row mt">
+                  <div class="col-md-12">
+                      <div class="content-panel">
+                          <table id="corporates_list" class="table table-striped table-advance table-hover">
+                            <h4><i class="fa fa-angle-right"></i>View All Corporates</h4>
+                            <!-- <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#addordermodal">New Order</button> -->
+                            <hr>
+                              <thead>
+                              <tr>
+                                  <th><i class="fa fa-bullhorn"></i>Reference ID</th>
+                                  <th class="hidden-phone"><i class="fa fa-cogs"></i>Name</th>
+                                  <th><i class="fa fa-envelope"></i>Email</th>
+                                  <th><i class=" fa fa-"></i>Phone Number</th>
+                                  <th><i class=" fa fa-edit"></i>Organisation Name</th>
+                                  <th><i class=" fa fa-edit"></i>Massage</th>
+                                   <th><i class=" fa fa-map-marker"></i>Location</th>
+                                   <th>Created On</th>
+                                   
+                                  <th></th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                             
+                              </tbody>
+                          </table>
+                      </div><!-- /content-panel -->
+         
+             
+                  </div><!-- /col-md-12 -->
+              </div><!-- /row -->
+
+
+    
+  <script>
+      //custom select box
+
+
+
+
+ jQuery.ajax({
+url:'https://handy-service-server.herokuapp.com/corporates',
+type:'get',
+success:function(data){
+console.log(data)
+  var corporates_list = '';
+if(Object.keys(data).length>0){
+jQuery.each(data,function(key,val){
+  
+  enabled = (val.enabled)?'Enabled':"Disabled";
+
+corporates_list +='<tr><td>'+val._id+'</td>';
+corporates_list +='<td>'+val.name+'</td>';
+corporates_list +='<td>'+val.email+'</td>';
+corporates_list +='<td>'+val.mobile+'</td>';
+corporates_list +='<td>'+val.org_name+'</td>';
+corporates_list +='<td>'+val.message+'</td>';
+corporates_list +='<td>'+val.location+'</td>';
+
+
+});
+jQuery('#corporates_list tbody').html(corporates_list);
+}
+}
+});
+      $(function(){
+         // $('select.styled').customSelect();
+      });
+
+  </script>
+
+  </body>
+</html>
+

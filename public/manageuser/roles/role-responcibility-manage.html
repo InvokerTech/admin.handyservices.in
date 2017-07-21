@@ -1,0 +1,581 @@
+<style>
+  body{
+    overflow-x: hidden;
+  }
+</style>
+
+<div class="row mt" style="
+background: #ffffff;
+box-shadow: 0px 3px 2px #aab2bd;
+padding-top: 15px;
+padding-bottom: 5px;
+"ng-controller="home_controller">
+<div class="col-md-12">
+  <div class="">
+    <!--  <div id="preloader" style="display:none;margin-top: 68px;position: fixed; left: 0; top: 0;z-index: 999;opacity: 0.5;width: 100%;height: 100%;overflow: visible;background: #f5f2f0 url(http://localhost/invokertech/assets/img/Preloader_1.gif) no-repeat center center;
+    "></div> -->
+    <div class="col-md-6">
+      <form>
+        <h2>Roles</h2>
+        <hr>
+        <div class="form-group row">
+          <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#addrole">Add Role</button>
+        </div>
+        <div class="form-group row">
+          <h3>Roles List</h3>
+          <div class="col-sm-10">
+            <ul ng-repeat="x in role">
+              <li value="{{x._id}}">{{x.name}}</li>
+            </ul>
+          </div>
+        </div>
+        <!-- <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Add Role</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="editrole_val" placeholder="Role">
+          </div>
+        </div> -->
+        <!-- <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label"></label>
+          <div class="col-sm-10">
+            <button type="button" id="edit_role" class="btn btn-info">Update</button> &nbsp;
+            <button type="button" id="delete_role" class="btn btn-info">Delete
+            </div>
+          </div> -->
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h2>Responsibilities</h2>
+        <hr>
+        <form>
+          <div class="form-group row">
+            <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#addresponsibility">Add Responsibility</button>
+          </div>
+          <div class="form-group row">
+            <h3>Responsibility</h3>
+            <div class="col-sm-10">
+              <ul ng-model="response_id" ng-repeat="x in resp">
+                <li value="{{x._id}}">{{x.table_name}}</li>
+              </ul>
+            </div>
+          </div>
+          <!-- <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Table Name</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="res_tablename">
+                <option selected>Choose...</option>
+                <option  value="OperationsCity">OperationsCity</option>
+                <option  value="Services">Services</option>
+                <option  value="Review">Review</option>
+                <option  value="Orders">Orders</option>
+                <option  value="ServiceMan">ServiceMan</option>
+                <option  value="Vendor">Vendor</option>
+                <option  value="Testimonail">Testimonail</option>
+                <option  value="Users">Users</option>
+                <option  value="HandyPackage">HandyPackage</option>
+                <option  value="HomeMoPackage">HomeMoPackage</option>
+
+              </select>
+            </div>
+          </div> -->
+          <!-- <div class="form-group row">
+            <label for="create" class="col-sm-2 col-form-label">Create</label>
+            <div class="col-sm-10">
+              <input type="checkbox" id="create" ng-model="u_create" placeholder="">
+            </div>
+          </div> -->
+          <!-- <div class="form-group row">
+            <label for="delete" class="col-sm-2 col-form-label">Delete</label>
+            <div class="col-sm-10">
+              <input type="checkbox" id="delete" ng-model="u_delete" placeholder="Responsibility">
+            </div>
+          </div> -->
+          <!-- <div class="form-group row">
+            <label for="update" class="col-sm-2 col-form-label">Update</label>
+            <div class="col-sm-10">
+              <input type="checkbox" id="update" ng-model="u_update" placeholder="Responsibility">
+            </div>
+          </div> -->
+          <!-- <div class="form-group row">
+            <label for="assign" class="col-sm-2 col-form-label">Assign</label>
+            <div class="col-sm-10">
+              <input type="checkbox" id="assign" ng-model="u_assign" placeholder="Responsibility">
+            </div>
+          </div> -->
+          <!-- <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+              <button type="button" id="update_resp" ng-click="update_resp()" class="btn btn-info">Update</button>&nbsp;
+              <button type="button" id="del_res" class="btn btn-info">Delete</button>
+            </div>
+          </div> -->
+        </form>
+      </div>
+    </div>
+
+    <!-- <h2>Assign responsibilities</h2> -->
+    <!-- <div class="container">
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Role</label>
+        <div class="col-sm-8">
+          <select class="form-control">
+            <option selected>Choose...</option>
+            <option ng-repeat="x in role" value="{{x._id}}">{{x.name}}</option>
+          </select>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Responsibility</label>
+        <div class="col-sm-10">
+          <div id="assign_responsibilities" ng-model="response_id">
+            <div class="row" ng-repeat="x in resp">
+              <div class="col-sm-6 responsibilities_list">
+                <input type="checkbox" value="{{x._id}}" id="{{x._id}}" />
+                <label for="{{x._id}}">{{x.table_name}}</label>
+              </div>
+              <div class="col-sm-6 responsibilities_actions"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-default" id="assign_roles_resp" >Assign</button>
+    </div> -->
+
+    <h2>Assign responsibilities</h2>
+    <div class="container">
+      <div class="row">
+        <h5>Roles</h5>
+      <div class="col-sm-8" id="assign_roles">
+        <select class="form-control">
+          <option selected>Choose...</option>
+          <option ng-repeat="x in role" value="{{x._id}}">{{x.name}}</option>
+        </select>
+      </div>
+      <div class="col-sm-2"></div>
+      </div>
+      <div class="row">
+      <h5>Responsibility</h5>
+        <div class="col-sm-8">
+          <div id="assign_responsibilities" ng-model="response_id">
+            <div class="row" ng-repeat="x in resp">
+              <div class="col-sm-6 responsibilities_list">
+                <input type="checkbox" value="{{x._id}}" id="{{x._id}}" />
+                <label for="{{x._id}}">{{x.table_name}}</label>
+              </div>
+              <div class="col-sm-6 responsibilities_actions"></div>
+            </div>
+          </div>
+        <div>
+          <div class="col-sm-2"></div>
+      </div>
+      <button class="btn btn-default" id="assign_roles_resp">Assign</button>
+    </div>
+
+    <!-- /content-panel -->
+    <!-- Modal -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Forgot Password ?</h4>
+          </div>
+          <div class="modal-body">
+            <p>Enter your e-mail address below to reset your password.</p>
+            <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+
+          </div>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+            <button class="btn btn-theme" type="button">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--edit service -->
+
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit_service_modal" class="modal fade">
+      <div class="modal-dialog">
+        <input type="hidden" name="service_id">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Edit Service</h4>
+          </div>
+          <div class="modal-body">
+            <p>Fill Service information below.</p>
+
+
+            <form class="form-horizontal style-form" method="get">
+
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Service Name</label>
+                <div class="col-sm-10">
+                  <input type="text" name="name" class="form-control" placeholder="Eg.Piyush">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Location</label>
+                <div class="col-sm-10">
+                  <select multiple name="location" class="form-control" placeholder="eg.A-1101"></select>
+                </div>
+                <!-- <div class="col-sm-5">
+                <input type="text" name="location_" class="form-control" placeholder="Eg.Piyush" disabled>
+              </div> -->
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Photo</label>
+              <div class="col-sm-5">
+                <input type="hidden" name="icona" class="form-control" placeholder="eg. mata rani ka mandir etc.">
+                <button type="button" name="icon" id="upload_img" class="form-control dz-clickable" placeholder="eg. mata rani ka mandir etc.">Upload</button>
+              </div>
+              <div class="col-sm-5">
+                <img src="" id="uploaded_icon" width="60" height="60">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Enabled</label>
+              <div class="col-sm-10">
+                <input id="op1" name="status" type="checkbox" value="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Description</label>
+              <div class="col-sm-10">
+                <textarea name="description" style="margin-top: 0px; margin-bottom: 0px; height: 150px;resize: none;"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+          <button class="btn btn-theme" id="edit_service" type="button">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- modal -->
+  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="addrole" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Add Role</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal style-form" method="get">
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Role</label>
+              <div class="col-sm-10">
+                <input type="text" name="name" id="role_val" class="form-control" placeholder="Eg.Piyush">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+              <button class="btn btn-theme" id="add_role" type="button">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /col-md-12 -->
+</div>
+<!-- /row -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="addresponsibility" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add Responsibility</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal style-form" method="get">
+
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Table Name</label>
+            <div class="col-sm-10">
+              <select class="form-control" ng-model="table_name">
+                <option  value="OperationsCity">OperationsCity</option>
+                <option  value="Services">Services</option>
+                <option  value="Review">Review</option>
+                <option  value="Orders">Orders</option>
+                <option  value="ServiceMan">ServiceMan</option>
+                <option  value="Vendor">Vendor</option>
+                <option  value="Testimonail">Testimonail</option>
+                <option  value="Users">Users</option>
+                <option  value="HandyPackage">HandyPackage</option>
+                <option  value="HomeMoPackage">HomeMoPackage</option>
+                <option  value="NewResp">New Resp</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Create</label>
+            <div class="col-sm-10">
+              <input type="checkbox" id="a_create" ng-model="create" placeholder="">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Delete</label>
+            <div class="col-sm-10">
+              <input type="checkbox" id="a_delete" ng-model="delete" placeholder="Responsibility">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Update</label>
+            <div class="col-sm-10">
+              <input type="checkbox" id="a_update" ng-model="update" placeholder="Responsibility">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Assign</label>
+            <div class="col-sm-10">
+              <input type="checkbox" id="a_assign" ng-model="assign" placeholder="Responsibility">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="save_res" ng-click="save_resp()" class="btn btn-info">Save</button>&nbsp;
+            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+//custom select box
+
+
+jQuery('#add_role').click(function () {
+  if (jQuery('#role_val').val() != '') {
+    jQuery.ajax({
+      url: 'https://handy-service-server.herokuapp.com/role',
+      type: 'POST',
+      data: 'name=' + jQuery('#role_val').val(),
+      success: function (data) {
+        swal('Success', 'Role has been added', 'success');
+        // setTimeout(function () {
+        //   window.location.href = '';
+        // }, 2000)
+      }
+    });
+  } else {
+    swal('Error', 'Please enter the role value', 'error');
+  }
+});
+// jQuery('#save_res').click(function(){
+// if(jQuery('#res_val').val()!='' && jQuery()){
+// jQuery.ajax({
+// url:'https://handy-service-server.herokuapp.com/role',
+// type:'POST',
+// data:'name='+jQuery('#res_val').val(),
+// success:function(data){
+// swal('Success','Role has been added','success');
+// }
+// });
+// }else{
+//   swal('Error','Please enter the role value','error');
+// }
+// });
+
+$(function () {
+  $('select.styled').customSelect();
+});
+jQuery('#resp_list').change(function () {
+  jQuery.ajax({
+    url: 'https://handy-service-server.herokuapp.com/responsibility?id=' + jQuery(this).val(),
+    type: 'get',
+    //beforeSend:function(){jQuery('#preloader').show()},
+    success: function (data) {
+      var element = angular.element($('#responsibilty'));
+      var controller = element.controller();
+      var scope = element.scope();
+
+      data = data[0];
+      console.log(data.table_name);
+      scope.table_name = data.table_name;
+      $("#res_tablename option[value='" + data.table_name + "']").prop('selected', 'selected');
+      $("#res_tablename").val(data.table_name);
+      if (data.assign) {
+        jQuery('#assign').prop('checked', true);
+      }
+      if (data.create) {
+        jQuery('#create').prop('checked', true);
+      }
+      if (data.update) {
+        jQuery('#update').prop('checked', true);
+      }
+      if (data.delete) {
+        jQuery('#delete').prop('checked', true);
+      }
+    }
+  });
+});
+
+
+//Add New Responsibility
+$(document).ready(function(){
+//   var resp_container = $('#assign_responsibilities');
+//   var responsibilities_list = [];
+//   $(resp_container).on('click','.responsibilities_list input[type="checkbox"]',function(){
+//     var resp_actions_state = new Object();
+//     // var cur = $(this).val();
+//     var table_name = $(this).next().text();
+//     var index = responsibilities_list.indexOf(table_name);
+//     if($(this).prop('checked')){
+//       if(index == -1){
+//         responsibilities_list.push({table_name});
+//       }
+//       $(this).parent().next().append('<input type="checkbox" value="create" id="create" />'+
+//                                      '<label for="create">Create</label>'+
+//                                      '<input type="checkbox" value="delete" id="delete" />'+
+//                                      '<label for="delete">Delete</label>'+
+//                                      '<input type="checkbox" value="update" id="update" />'+
+//                                      '<label for="update">Update</label>'+
+//                                      '<input type="checkbox" value="assign" id=assign"" />'+
+//                                      '<label for="assign">Assign</label>');
+//     }else{
+//       responsibilities_list.splice(index, 1);
+//       $(this).parent().next().empty();
+//     }
+//     // console.log(responsibilities_list);
+//   });
+//
+//   $(resp_container).on('click','.responsibilities_actions input[type="checkbox"]',function(){
+//     var par_val = $(this).parent().prev().find('label').text();
+//     var par_key =  $(this).parent().prev().find('input[type="checkbox"]').val();
+//     var cur_obj;
+//     $.each(responsibilities_list,function(i,v){
+//       if(v.table_name == par_val){
+//         cur_obj = this;
+//       }
+//     });
+//     var new_obj = {table_name:par_val};
+//     var cur_val = $(this).val();
+//     if($(this).prop('checked')){
+//       if($(this).val()=="create"){
+//         cur_obj.create=true;
+//       }
+//       if($(this).val()=="update"){
+//         cur_obj.update = true;
+//       }
+//       if($(this).val()=="delete"){
+//         cur_obj.delete = true;
+//       }
+//       if($(this).val()=="assign"){
+//         cur_obj.assign = true;
+//       }
+//     }else{
+//       if($(this).val()=="create"){
+//         cur_obj.create=false;
+//       }
+//       if($(this).val()=="update"){
+//         cur_obj.update = false;
+//       }
+//       if($(this).val()=="delete"){
+//         cur_obj.delete = false;
+//       }
+//       if($(this).val()=="assign"){
+//         cur_obj.assign = false;
+//       }
+//     }
+//
+//   });
+
+
+
+  //Add Responsibility
+  var add_resp_obj = new Object();
+  $('#save_res').click(function(){
+    $.post( "https://handy-service-server.herokuapp.com/responsibility",add_resp_obj,function( data ) {
+      window.location.reload();
+    });
+  });
+
+  $('#addresponsibility').on('change','select',function(){
+    add_resp_obj.table_name = $(this).val();
+  });
+
+  $('#addresponsibility').on('click','input[type="checkbox"]',function(){
+    var cur_val = $(this).parent().prev().text();
+    var table_name = $('#addresponsibility').find('select').val();
+      add_resp_obj.table_name = table_name;
+    if($(this).prop('checked')){
+      if(cur_val == "Create"){
+        add_resp_obj.create = true;
+      }
+      if(cur_val == "Delete"){
+        add_resp_obj.delete = true;
+      }
+      if(cur_val == "Update"){
+        add_resp_obj.update = true;
+      }
+      if(cur_val == "Assign"){
+        add_resp_obj.assign = true;
+      }
+    }else {
+      if(cur_val == "Create"){
+        add_resp_obj.create = false;
+      }
+      if(cur_val == "Delete"){
+        add_resp_obj.delete = false;
+      }
+      if(cur_val == "Update"){
+        add_resp_obj.update = false;
+      }
+      if(cur_val == "Assign"){
+        add_resp_obj.assign = false;
+      }
+    }
+    console.log(add_resp_obj);
+  });
+
+  // Assign roles and resp
+  //
+
+  var assign_responsibilities_obj = new Object();
+  var assign_resp_arr = [];
+  $('#assign_roles select').on('change',function(){
+    assign_resp_arr.splice(0, assign_resp_arr.length);
+    $('.responsibilities_list').find('input[type="checkbox"]').prop('checked',false);
+  });
+
+  $('#assign_responsibilities').on('click','input[type="checkbox"]',function(){
+    var role_id = $('#assign_roles select').val();
+    var index = assign_resp_arr.indexOf({role_id:role_id,responsibility:$(this).val()});
+    assign_responsibilities_obj.role_id = role_id;
+      if($(this).prop('checked')){
+          assign_resp_arr.push({role_id:role_id,responsibility:$(this).val()});
+      }else{
+          assign_resp_arr.splice(index, 1);
+      }
+  });
+  //Assign
+  $('#assign_roles_resp').click(function(){
+    var reload_time = parseInt(assign_resp_arr.length * 500);
+    $.each(assign_resp_arr,function(i,val){
+        $.post('https://handy-service-server.herokuapp.com/assign/responsibility',val, function(data, textStatus, xhr) {
+          /*optional stuff to do after success */
+        });
+    });
+    setTimeout(reloadWindow,reload_time);
+  });
+
+
+
+  function reloadWindow(){
+    window.location.reload();
+  }
+
+});
+
+</script>

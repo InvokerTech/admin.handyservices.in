@@ -1,0 +1,113 @@
+    <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+<style>
+#sidebar{
+  overflow-y: scroll;
+}
+</style>
+        <!--sidebar start-->
+        <aside ng-controller="SideCtrl as vm">
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu" >
+
+                    <p class="centered">
+                        <a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a>
+                    </p>
+                    <h5 class="centered"><span id="admin_name"></span></h5>
+
+                    <li class="mt">
+                        <a class="" href="">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="sub-menu">
+                        <a href="javascript:;" ng-click="vm.showUser();" >
+                            <i class="fa fa-desktop"></i>
+                            <span>User Management</span>
+                        </a>
+
+                    </li>
+                       <ul ng-if="vm.user" class="sub">
+                            <li><a ui-sref="admin.manageuser-team">Inhouse Team</a></li>
+                            <li><a ui-sref="admin.manageuser-customer">Customers</a></li>
+                            <li><a ui-sref="admin.manageuser-customercareexecutive">Customers Care Executive</a></li>
+                            <li><a ui-sref="admin.manageuser-vendor">Partners/Serviceman</a></li>
+
+                             <li><a ui-sref="admin.manageuser-role" >Role/Responsibility</a></li>
+                        </ul>
+
+                    <li class="sub-menu">
+                        <a href="javascript:;" ng-click="vm.showService();">
+                            <i class="fa fa-cogs"></i>
+                            <span>Manage Services</span>
+                        </a>
+
+                    </li>
+                       <ul ng-if="vm.service" class="sub">
+                          <li><a ui-sref="admin.manageservice">All Services</a></li>
+
+                           <!-- <li><a ui-sref="admin.manageservice-handy">Handy Maintenance Pack.</a></li>-->
+                        </ul>
+                    <li class="sub-menu">
+                        <a  ui-sref="admin.managearea">
+                            <i class="fa fa-map-marker"></i>
+                            <span>Manage Area</span>
+                        </a>
+
+                    </li>
+                  <!--  <li class="sub-menu">
+                        <a href="javascript:;" ng-click="vm.showMail();">
+                            <i class="fa fa-tasks"></i>
+                            <span>Mail/SMS Management</span>
+                        </a>
+
+                    </li>
+                      <ul ng-if="vm.mail" class="sub">
+                            <li><a href="send-offers-manage.html">Send Offers</a></li>
+                            <li><a href="send-notifications-manage.html">Send Notifications</a></li>
+                            <li><a href="manage-notifications-templates-manage.html">Manage Mail/SMS Template</a></li>
+                        </ul>-->
+                    <li class="sub-menu">
+                        <a href="javascript:;" ng-click="vm.showCrm();">
+                            <i class="fa fa-th"></i>
+                            <span>CRM</span>
+                        </a>
+
+                    </li>
+                       <ul ng-if="vm.crm"  class="sub">
+                            <li><a ui-sref="admin.crm-orders">View Orders</a></li>
+                            <li><a ui-sref="admin.crm-maintainence-packages">Maintainence Packages</a></li>
+                            <li><a ui-sref="admin.crm-hmp">HMP Requests</a></li>
+                            <li><a ui-sref="admin.crm-callback">Callback Requests</a></li>
+                            <li><a ui-sref="admin.crm-feedback">Customer Feedback</a></li>
+                            <li><a ui-sref="admin.manageuser-corporate">Corporate/Business</a></li>
+                             <li><a ui-sref="admin.crm-messages">Messages</a></li>
+                              <li><a ui-sref="admin.crm-reviewRatings">Review &amp; Ratings</a></li>
+                               <li><a ui-sref="admin.crm-partnerRequests">Partners Request</a></li>
+                                <li><a ui-sref="admin.crm-miscellaneous">Miscellaneous</a></li>
+                        </ul>
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class=" fa fa-bar-chart-o"></i>
+                            <span>Report/Download</span>
+                        </a>
+                        <!--  <ul class="sub">
+                          <li><a  href="morris.html">Morris</a></li>
+                          <li><a  href="chartjs.html">Chartjs</a></li>
+                      </ul> -->
+                    </li>
+
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <script>
+          $(document).ready(function(){
+            $('#admin_name').text(localStorage.getItem("adminName"));
+          });
+        </script>

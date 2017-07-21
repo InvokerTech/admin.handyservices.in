@@ -1,0 +1,565 @@
+
+<div class="row mt" ng-controller="customer_exe_con"}>
+  <div class="col-md-12">
+    <div class="content-panel">
+      <table class="table table-striped table-advance table-hover">
+        <h4><i class="fa fa-angle-right"></i>View All Cutomers Care Executives</h4>
+        <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#addcustomercareexe">Add New</button>
+        <hr>
+        <thead>
+          <tr>
+            <th><i class="fa fa-bullhorn"></i>Profile</th>
+            <th class="hidden-phone"><i class="fa fa-cogs"></i>Full Name</th>
+            <th><i class="fa fa-map-marker"></i>Email</th>
+            <th><i class="fa fa-map-marker"></i>Mobile No.</th>
+            <th><i class=" fa fa-edit"></i>Address</th>
+            <th>Gender</th>
+            <th>D.O.B.</th>
+            <th><i class=" fa fa-edit"></i>Actions</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="val in cus_exe_info">
+            <td >{{val._id}}</td>
+            <td >{{val.name}}</td>
+            <td>{{val.email}}</td>
+            <td>{{val.number}}</td>
+            <td>{{val.pass}}</td>
+            <td class="ng-hide" >{{val.dob}}</td>
+            <td class="ng-hide" >{{val.gender}}</td>
+            <td class="ng-hide" >{{val.city}}</td>
+            <td class="ng-hide" >{{val.address}}</td>
+
+            <td>
+              <button class="btn btn-primary btn-xs view_customer_exe" ><i class="fa fa-eye"></i></button>
+              <button class="btn btn-primary btn-xs edit_customer_exe" ><i class="glyphicon glyphicon-pencil"></i></button>
+              <button class="btn btn-primary btn-xs delete_customer_exe" ><i class="fa fa-trash-o "></i></button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div><!-- /content-panel -->
+    <!-- modal -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="addcustomercareexe" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Create Customer Care Executive</h4>
+          </div>
+          <div class="modal-body">
+            <p>Fill Customer information below.</p>
+            <form class="form-horizontal style-form" method="post" >
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">First Name</label>
+                <div class="col-sm-10">
+                  <input type="text" id="cce_first_name"  class="form-control" placeholder="Eg.Piyush">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Last Name</label>
+                <div class="col-sm-10">
+                  <input type="text"  id="cce_last_name" class="form-control" placeholder="Eg. Dixit">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Gender</label>
+                <div class="col-sm-10">
+                  <select id="cce_gender" class="form-control">
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                  <!-- <input type="text" id="cce_gender" class="form-control" placeholder="Eg. abc@abc.com"> -->
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Date of Birth</label>
+                <div class="col-sm-10">
+                  <div id="cce_dob" ></div>
+                  <!-- <input type="text" name="scheduled_date"  id="cce_dob" class="form-control scheduled_date" placeholder=""> -->
+                  <!-- <input type="text" name="scheduled_time" class="form-control scheduled_time" placeholder="" required=""> -->
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Mobile Number</label>
+                <div class="col-sm-10">
+                  <input type="text" id="cce_phone" class="form-control" placeholder="Eg. Enter 10-digit Mobile No.">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="text" id="cce_email" class="form-control" placeholder="Eg. abc@abc.com">
+                </div>
+              </div>
+                       
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">House No.</label>
+                <div class="col-sm-10">
+                  <input type="text" id="cce_building" class="form-control" placeholder="eg.A-1101">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Society/Flat</label>
+                <div class="col-sm-10">
+                  <input type="text" id="cce_localiity" class="form-control" placeholder="eg. xyz nagar/ co-operative society">
+                </div>
+              </div>
+             
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Landmark</label>
+                <div class="col-sm-10">
+                  <input type="text" id="cce_landmark" class="form-control" placeholder="eg.123456">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Area</label>
+                <div class="col-sm-10">
+                  <input type="text" id="cce_area" class="form-control" placeholder="(Optional)">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Road</label>
+                <div class="col-sm-10">
+                  <input type="text" id="cce_road" class="form-control" placeholder="(Optional)">
+                </div>
+              </div>
+             <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">City</label>
+                <div class="col-sm-10">
+                  <select id="cce_city" class="form-control" >
+                    <option value="">Select City</option>
+                  </select>
+                  <!-- <input type="text" id="cce_city" class="form-control" placeholder="eg. ahmedabad,surat etc"> -->
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">State</label>
+                <div class="col-sm-10">
+                  <input type="text" disabled="" id="cce_state" class="form-control" placeholder="">
+                </div>
+              </div>
+               <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Zip Code</label>
+                <div class="col-sm-10">
+                  <input type="text" id="cce_zip" class="form-control" placeholder="eg.123456">
+                </div>
+              </div>
+               <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="text" id="cce_pass" class="form-control" placeholder="Eg. abc123">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+            <button class="btn btn-theme" id="add_cce_btn" type="button">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /col-md-12 -->
+</div><!-- /row -->
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="view_customer_care_edit" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Edit Customer Care Executive</h4>
+      </div>
+      <div class="modal-body">
+        <p>Fill Customer information below.</p>
+        <form class="form-horizontal style-form" method="post" >
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">First Name</label>
+            <div class="col-sm-10">
+              <input type="text" id="cce_name_first"  class="form-control" placeholder="Eg.Piyush">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Last Name</label>
+            <div class="col-sm-10">
+              <input type="text"  id="cce_name_last" class="form-control" placeholder="Eg. Dixit">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Date of Birth</label>
+            <div class="col-sm-10">
+              <div id="e_cce_dob" ></div>
+              <!-- <input type="text" name="scheduled_date"  id="cce_dob" class="form-control scheduled_date" placeholder=""> -->
+              <!-- <input type="text" name="scheduled_time" class="form-control scheduled_time" placeholder="" required=""> -->
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Gender</label>
+            <div class="col-sm-10">
+              <select id="cce_gender" class="form-control">
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+              <!-- <input type="text" id="cce_gender" class="form-control" placeholder="Eg. abc@abc.com"> -->
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Mobile Number</label>
+            <div class="col-sm-10">
+              <input type="text" id="cce_phone_edit" class="form-control" placeholder="Eg. 9876543210">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+              <input type="text" id="cce_email" class="form-control" placeholder="Eg. abc@abc.com">
+            </div>
+          </div>
+      
+        
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">House No.</label>
+            <div class="col-sm-10">
+              <input type="text" id="cce_house" class="form-control" placeholder="eg.A-1101">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Society/Flat</label>
+            <div class="col-sm-10">
+              <input type="text" id="cce_locality" class="form-control" placeholder="eg. xyz nagar/ co-operative society">
+            </div>
+          </div>
+         
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Landmark</label>
+            <div class="col-sm-10">
+              <input type="text" id="cce_landmark" class="form-control" placeholder="(Optional)">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Area</label>
+            <div class="col-sm-10">
+              <input type="text" id="cce_area" class="form-control" placeholder="(Optional)">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Road</label>
+            <div class="col-sm-10">
+              <input type="text" id="cce_road" class="form-control" placeholder="(Optional)">
+            </div>
+          </div>
+            <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">City</label>
+            <div class="col-sm-10">
+              <select id="l_cce_city" class="form-control" ></select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">State</label>
+            <div class="col-sm-10">
+              <input type="text" disabled="" id="cce_state" class="edit-state form-control" placeholder="">
+            </div>
+          </div>
+           <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Zip Code</label>
+            <div class="col-sm-10">
+              <input type="text" id="cce_zip" class="form-control" placeholder="eg.HSO-xxxxx etc.">
+            </div>
+          </div>
+              <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+              <input type="text" id="cce_pass" class="form-control" placeholder="Eg. abc@abc.com">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+        <button class="btn btn-theme" id="edit_cce_btn" type="button">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- /col-md-12 -->
+</div><!-- /row -->
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="view_customer_care_view" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">View Customer Care Executive</h4>
+      </div>
+      <div class="modal-body">
+        <p></p>
+        <form class="form-horizontal style-form" method="get">
+          <!-- <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">profile image</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_first_name">photo</label>
+            </div>
+          </div> -->
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">full name</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_number">{{cus_rep.mobile}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label"> Mobile no.</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_email">{{cus_rep.email}}</label>
+            </div>
+          </div>
+         
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_address">{{cus_rep.address}}</label>
+            </div>
+          </div>
+           <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Date of birth</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_dob">{{cus_rep.dob}}</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Gender</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_gender">{{cus_rep.address}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Address</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_address_all">{{cus_rep.address}}</label>
+            </div>
+          </div>
+          <!---
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">created by(username, date/time)</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_add">{{cus_rep.address}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">updated by(username, date/time)</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_add">{{cus_rep.address}}</label>
+            </div>
+          </div> -->
+           <div class="form-group">
+            <label class="col-sm-2 col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+              <label class="col-sm-2 col-sm-2 control-label" id="l_add">{{cus_rep.address}}</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    jQuery('.scheduled_date').datepicker();
+    $("#cce_dob,#e_cce_dob").birthdayPicker({
+      "maxYear": "2000",
+      "maxAge": 90,
+      "monthFormat":"short"
+    });
+
+
+    var acitve_cities;
+    $('#addcustomercareexe,#view_customer_care_edit').on('show.bs.modal',function(){
+        if(!acitve_cities){
+        $.getJSON("https://handy-service-server.herokuapp.com/locations/enabled", function(data, status){
+        acitve_cities = data;
+        if(status == "success"){
+          $.each(acitve_cities,function(index,val){
+            //Loads active cities in the modal
+            // $('#ha_new_order_city').append('<option index="'+val._id+'" value="'+val.city_name+'">'+val.city_name+'</option>');
+            $('#cce_city').append('<option data-state="'+val.state_name+'" index="'+val._id+'" value="'+val.city_name+'">'+val.city_name+'</option>');
+            $('#l_cce_city').append('<option data-state="'+val.state_name+'" index="'+val._id+'" value="'+val.city_name+'">'+val.city_name+'</option>');
+          });
+        }
+       });
+     }else{
+       $('#l_cce_city').html("");
+       $.each(acitve_cities,function(index,val){
+         //Loads active cities in the modal
+         $('#l_cce_city').append('<option data-state="'+val.state_name+'" index="'+val._id+'" value="'+val.city_name+'">'+val.city_name+'</option>');
+       });
+     }
+    });
+
+     // Stuff to do as soon as the DOM is ready. Use $() w/o colliding with other libs
+     function add_executive(name, email, number, pass, dob, gender,address){
+       $.post('https://handy-service-server.herokuapp.com/add/executive', {dob:dob, name:name, email:email, number:number, pass:pass, gender:gender,address:address}, function(data, textStatus, xhr) {
+         /*optional stuff to do after success */
+          window.location.reload();
+       });
+     }
+
+     function update_executive(name, email, number, pass, dob, gender,address){
+       $.post('https://handy-service-server.herokuapp.com/update/executive', {dob:dob, name:name, email:email, number:number, pass:pass, gender:gender,address:address}, function(data, textStatus, xhr) {
+         /*optional stuff to do after success */
+          window.location.reload();
+       });
+     }
+
+     function delete_executive(executive_id){
+         $.post('https://handy-service-server.herokuapp.com/delete/executive', {id:executive_id}, function(data, textStatus, xhr) {
+           /*optional stuff to do after success */
+           setTimeout(function(){
+             window.location.reload();
+           })
+         });
+     }
+
+     function get_executive_details(id){
+       var json_data;
+       $.getJSON('https://handy-service-server.herokuapp.com/executive', {id:id}, function(json, textStatus) {
+           /*optional stuff to do after success */
+           return json;
+       });
+
+     }
+
+
+     setTimeout(function () {
+       get_all_executives();
+     }, 10);
+     function get_all_executives(){
+       $.getJSON('https://handy-service-server.herokuapp.com/all/executive', function(json, textStatus) {
+           /*optional stuff to do after success */
+           console.log(json);
+       });
+     }
+
+
+     $('#add_cce_btn').click(function(){
+       var ope = $('#addcustomercareexe');
+       var name = ope.find('#cce_first_name').val()+' '+ope.find('#cce_last_name').val();
+       var number = ope.find('#cce_phone').val();
+       var email = ope.find('#cce_email').val();
+       var pass = ope.find('#cce_pass').val();
+       var dob = ope.find('input[name="cce_dob_birthDay"]').val();
+       var gender = ope.find('#cce_gender').val();
+
+       var address = {
+          houseno: ope.find('#cce_building').val(),
+          society: ope.find('#cce_localiity').val(),
+          city: ope.find('#cce_city').val(),
+          landmark: ope.find('#cce_landmark').val(),
+          zip_code: ope.find('#cce_zip').val(),
+          state: ope.find('#cce_state').val(),
+          road: ope.find('#cce_road').val(),
+          area: ope.find('#cce_area').val()
+          };
+
+       add_executive(name, email, number, pass, dob, gender,address);
+     });
+
+     $('#cce_city,#l_cce_city').on('click','option',function(event) {
+       /* Act on the event */
+       var state = $(this).attr('data-state');
+       $(this).parents('.modal-body').find('input#cce_state').val(state);
+      //  $(this).parents('.modal-body').find('input.edit-state').val(state);
+
+     });
+
+     $('body').on('click','.edit_customer_exe',function(){
+       var name = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(1).text();
+       var email = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(2).text();
+       var mobile_no =  $(this).parents('tr.ng-scope').find('td.ng-binding').eq(3).text();
+       var password =  $(this).parents('tr.ng-scope').find('td.ng-binding').eq(4).text();
+       var dob = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(5).text();
+       var gender = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(6).text();
+       var city = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(7).text();
+       var address = JSON.parse($(this).parents('tr.ng-scope').find('td.ng-binding').eq(8).text());
+
+       $('#view_customer_care_edit').find('#cce_name_first').val(name.split(" ")[0]);
+       $('#view_customer_care_edit').find('#cce_name_last').val(name.split(" ")[1]);
+       $('#view_customer_care_edit').find('#cce_phone_edit').val(mobile_no);
+       $('#view_customer_care_edit').find('#cce_email').val(email);
+       $('#view_customer_care_edit').find('#cce_pass').val(password);
+       $('#view_customer_care_edit').find('#l_cce_city').val(city);
+       //address
+        $('#view_customer_care_edit').find('#cce_house').val(address.houseno);
+        $('#view_customer_care_edit').find('#cce_locality').val(address.society);
+        $('#view_customer_care_edit').find('#cce_zip').val(address.zip_code);
+        $('#view_customer_care_edit').find('#cce_landmark').val(address.landmark);
+        $('#view_customer_care_edit').find('#cce_area').val(address.area);
+        $('#view_customer_care_edit').find('#cce_road').val(address.road);
+        $('#view_customer_care_edit').find('#cce_state').val(address.state);
+       $('#view_customer_care_edit').find("#e_cce_dob").empty();
+       $('#view_customer_care_edit').find("#e_cce_dob").birthdayPicker({
+         "defaultDate": dob,
+         "maxYear": "2000",
+         "maxAge": 90,
+         "monthFormat":"short"
+       });
+       $('#view_customer_care_edit').find('#cce_gender').val(gender);
+
+       $('#view_customer_care_edit').modal("show");
+     });
+
+     $('#edit_cce_btn').click(function(event) {
+       /* Act on the event */
+       var name=$('#view_customer_care_edit').find('#cce_name_first').val();
+       var email=$('#view_customer_care_edit').find('#cce_email').val();
+       var mobile_no= $('#view_customer_care_edit').find('#cce_phone_edit').val();
+       var password=$('#view_customer_care_edit').find('#cce_pass').val();
+       var dob = $('#view_customer_care_edit').find('input[name="e_cce_dob_birthDay"]').val();
+       var gender = $('#view_customer_care_edit').find('#cce_gender').val();
+       var address = {
+           houseno: $('#view_customer_care_edit').find('#cce_building').val(),
+           society: $('#view_customer_care_edit').find('#cce_localiity').val(),
+           city: $('#view_customer_care_edit').find('#l_cce_city').val(),
+           landmark: $('#view_customer_care_edit').find('#cce_landmark').val(),
+           zip_code: $('#view_customer_care_edit').find('#cce_zip').val(),
+           state: $('#view_customer_care_edit').find('#cce_state').val(),
+           road: $('#view_customer_care_edit').find('#cce_road').val(),
+           area: $('#view_customer_care_edit').find('#cce_area').val()
+           };
+
+
+       update_executive(dob,name, email, mobile_no, password,gender,address);
+     });
+
+     $('body').on('click','.view_customer_exe',function(){
+       var cust_id = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(0).text();
+       var name = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(1).text();
+       var email = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(2).text();
+       var mobile_no =  $(this).parents('tr.ng-scope').find('td.ng-binding').eq(3).text();
+       var password =  $(this).parents('tr.ng-scope').find('td.ng-binding').eq(4).text();
+       var dob = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(5).text();
+       var gender = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(6).text();
+       var city = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(7).text();
+       var address = JSON.parse($(this).parents('tr.ng-scope').find('td.ng-binding').eq(8).text());
+
+       $('#view_customer_care_view').find('#l_number').text(name);
+       $('#view_customer_care_view').find('#l_email').text(mobile_no);
+       $('#view_customer_care_view').find('#l_add').text(password);
+       $('#view_customer_care_view').find('#l_address').text(email);
+       $('#view_customer_care_view').find('#l_dob').text(dob);
+       $('#view_customer_care_view').find('#l_gender').text(gender);
+       $('#view_customer_care_view').find('#l_address_all').text(address.houseno+','+address.society+','+address.area+','+address.city+','+address.landmark+','+address.road+','+address.state+','+address.zip_code);
+       $('#view_customer_care_view').modal('show');
+     });
+
+     $('body').on('click','.delete_customer_exe',function(){
+        var cust_id = $(this).parents('tr.ng-scope').find('td.ng-binding').eq(0).text();
+        delete_executive(cust_id);
+     });
+  });
+
+</script>

@@ -1,0 +1,13 @@
+<section id="container">
+        <div ng-include="'header/header.html'"></div>
+        <div ng-include="'sidebar/sidebar.html'"></div>
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                <div ui-view></div>
+            </section>
+        </section>
+        <div ng-include="'tpl/footer.html'"></div>
+
+    </section>
+  <script src="assets/js/common-scripts.js"></script>

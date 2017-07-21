@@ -1,0 +1,145 @@
+jQuery(document).ready(function(){
+
+
+
+jQuery('#mr_save').click(function(event){
+event.preventDefault();
+if(jQuery('[name=amount]').val()=='' || jQuery('[name=password]').val()==''){
+
+
+jQuery(this).parents('.form-body').find('.form-group').addClass('has-error');
+jQuery(this).parents('.form-body').find('li').addClass('validation_errors');
+}else{
+	if(jQuery('[name=amount]').val()/10>=1){
+		if(jQuery.isNumeric(jQuery('[name=amount]').val())){
+jQuery(this).parents('.form-body').find('.form-group').removeClass('has-error');
+	//jQuery('#amount_error').text('');
+	
+jQuery(this).parents('.form-body').find('li').removeClass('validation_errors');
+jQuery.ajax({
+	url:jQuery('#site_url').val()+'/user/make_ph_request',
+	type:'POST',
+	data:jQuery('#ph_request_form').serialize(),
+	dataType:'json',
+	success:function(data){
+		console.log(data);
+		if(data!=null && typeof data.type!=='undefined' &&  data.mesg=='wrong_password'){
+			jQuery('#error_msg').show();
+			jQuery('#error_msg').addClass('alert-danger');
+			jQuery('#error_msg').html(' <a href="#" class="close" data-dismiss="alert">×</a><div id="warning_msg"><strong>Warning!</strong> Please You have entered Wrong Password</div>');
+		}else if(data!=null && typeof data.type!=='undefined' &&  data.mesg=='no_ghmember'){
+			jQuery('#error_msg').show();
+			jQuery('#error_msg').addClass('alert-danger');
+			jQuery('#error_msg').html(' <a href="#" class="close" data-dismiss="alert">×</a><div id="warning_msg"><strong>Sorry!</strong> There is no Members  </div>');
+		}else if(typeof data.type!=='undefined' &&  data.type=='success'){
+			jQuery('#error_msg').show();
+			jQuery('#error_msg').removeClass('alert-danger');
+			jQuery('#error_msg').addClass('alert-success');
+			jQuery('#error_msg').html(' <a href="#" class="close" data-dismiss="alert">×</a><div id="warning_msg"><strong>Congrates!</strong> Your data has been saved  </div>');
+		    setTimeout(function(){window.location.href = jQuery('#site_url').val()+'/user/ph_list'},2000);
+		}
+	}
+});
+
+}else{
+	jQuery('[name=password]').parents('.form-group').removeClass('has-error');
+	jQuery('[name=password]').parents('.form-group').find('li').removeClass('validation_errors');
+	jQuery('#amount_error').text('Invalid Amount');
+	(jQuery('#amount_error').parents('.form-group').hasClass('has-error'))?'':jQuery('#amount_error').parents('.form-group').addClass('has-error');
+(jQuery(this).parents('.form-body').find('li').hasClass('validation_errors'))?'':jQuery(this).parents('.form-body').find('li').addClass('validation_errors');
+}}else{
+	
+	jQuery('[name=password]').parents('.form-group').removeClass('has-error');
+	jQuery('[name=password]').parents('.form-group').find('li').removeClass('validation_errors');
+	jQuery('#amount_error').text('Amount Should be greater than 10');
+	jQuery('#amount_error').parents('.form-group').addClass('has-error');
+jQuery(this).parents('.form-body').find('li').addClass('validation_errors');
+}
+}
+
+});
+
+
+
+jQuery('#send_msg').click(function(event){
+
+if(jQuery('#c_recv_id').val()=='' || jQuery('#subject').val()=='' || jQuery('#message').val()==''){
+event.preventDefault();
+jQuery(this).parents('.panel-body').find('.form-group').addClass('has-error');
+jQuery(this).parents('.panel-body').find('.error').addClass('validation_errors');
+jQuery(this).parents('.panel-body').find('.error').text('All Fields Required');
+}else{
+jQuery('#testomonial_form').submit();
+}
+
+});
+jQuery('#testomonial_cancle').click(function(event){
+
+jQuery('#memeber_id').val('') ;
+jQuery('#subject').val('') ;
+ jQuery('#message').val('');
+
+});
+
+
+	jQuery('#l_save').click(function(){
+		
+		jQuery('.form_action').find('img').remove();
+	
+if(jQuery('#comment').val()!='' && jQuery('#title').val()!=''){
+jQuery.ajax({
+url:jQuery('#site_url').val()+'/user/save_letter',
+data:'letter='+jQuery('#comment').val()+'&title='+jQuery('#title').val(),
+beforeSend : function(){
+      jQuery('.form_action').append("<img src='http://[::1]/fidele1/assets/img/loader.gif'>");    },
+type:'POST',
+success:function(data){
+	jQuery('#l_save').parents('.form-body').find('.form-group').removeClass('has-error');
+	jQuery('.form_action').find('img').remove();
+	 jQuery('.form_action').append('<span id="letter_error" style="font-style: italic; color:green">Saved</span>');
+	// jQuery('#error_msg').show();
+			//jQuery('#error_msg').removeClass('alert-danger');
+			jQuery('#success_msg').addClass('alert-success');
+			jQuery('#success_msg').html(' <a href="#" class="close" data-dismiss="alert">×</a><div id="warning_msg"><strong>Congrates!</strong> Your Greeting has been Send to Admin  </div>');
+		    setTimeout(function(){window.location.href = ''},2000);
+jQuery('#comment').val('');
+jQuery('#title').val('');
+
+}
+});
+}else{
+	jQuery(this).parents('.form-body').find('.form-group').addClass('has-error');
+}
+});
+
+
+
+	jQuery('#t_save').click(function(){
+		jQuery('.tickets_form_action').find('img').remove();
+		
+		
+if(jQuery('#add_tickets').val()!='' && jQuery('#ticket_title').val()!=''){
+jQuery.ajax({
+url:jQuery('#site_url').val()+'/user/add_ticket',
+data:'ticket='+jQuery('#add_tickets').val()+'&title='+jQuery('#ticket_title').val(),
+beforeSend : function(){
+      jQuery('.tickets_form_action').append("<img src='http://[::1]/fidele1/assets/img/loader.gif'>");    },
+type:'POST',
+success:function(data){
+	jQuery('.tickets_form_action').find('span').remove();
+	jQuery('.tickets_form_action').find('img').remove();
+	jQuery('#t_save').parents('.form-body').find('.form-group').removeClass('has-error');
+//	jQuery('.tickets_form_action').append('<span id="letter_error" style="font-style: italic; color:green">Saved</span>');
+jQuery('#add_tickets').val('');
+jQuery('#ticket_title').val('');
+jQuery('#success_msg').css('opacity',1);
+  setTimeout(function(){window.location.href = jQuery('#site_url').val()+'/user/all_tickets'},2000);
+}
+});
+}else{
+	jQuery('#success_msg').css('opacity',0);
+	//jQuery('.tickets_form_action').append('<span id="letter_error" style="font-style: italic;color:red">Required</span>');
+     jQuery('#t_save').parents('.form-body').find('.form-group').addClass('has-error');
+}
+});	
+});
