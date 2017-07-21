@@ -1,0 +1,2 @@
+# admin.handyservices.in
+This website is developed on meanstack technology where the webservices are developed using node.js and services are called using Angular Js framework. This website helps handyservices admin users to manage their data to manage their service using various features such as Custom Dashboard, Custom CRM, Custom Management System to manage their services and area of operations of service. All the details are available on Trello Board "Handyservices Admin Website. 
